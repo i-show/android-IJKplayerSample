@@ -16,19 +16,24 @@
 
 package tv.danmaku.ijk.media.sample.activities;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.sample.R;
+import tv.danmaku.ijk.media.sample.utils.VDVideoScreenOrientation;
 import tv.danmaku.ijk.media.sample.widget.media.AndroidMediaController;
 import tv.danmaku.ijk.media.sample.widget.media.IjkVideoView;
 
-public class VideoActivity extends AppCompatActivity  {
+public class VideoActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "VideoActivity";
 
 
@@ -36,14 +41,12 @@ public class VideoActivity extends AppCompatActivity  {
     private IjkVideoView mVideoView;
 
     private boolean mBackPressed;
-
+    private ViewGroup mPGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
-
-
 
         // init UI
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -56,12 +59,17 @@ public class VideoActivity extends AppCompatActivity  {
         // init player
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-
+        mPGroup = (ViewGroup) findViewById(R.id.content_p);
         mVideoView = (IjkVideoView) findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
         // prefer mVideoPath
         mVideoView.setVideoPath("http://mss.pinet.co/index.php/api/retrieve/3da4edce-b445-42c8-88a7-3b8a1997d61c/playlist.m3u8");
         mVideoView.start();
+
+        Button bu1 = (Button) findViewById(R.id.button);
+        bu1.setOnClickListener(this);
+        Button bu2 = (Button) findViewById(R.id.button2);
+        bu2.setOnClickListener(this);
     }
 
     @Override
@@ -96,21 +104,15 @@ public class VideoActivity extends AppCompatActivity  {
         int id = item.getItemId();
         if (id == R.id.action_toggle_ratio) {
             int aspectRatio = mVideoView.toggleAspectRatio();
-           // String aspectRatioText = MeasureHelper.getAspectRatioText(this, aspectRatio);
-           // mToastTextView.setText(aspectRatioText);
-           // mMediaController.showOnce(mToastTextView);
+            // String aspectRatioText = MeasureHelper.getAspectRatioText(this, aspectRatio);
             return true;
         } else if (id == R.id.action_toggle_player) {
             int player = mVideoView.togglePlayer();
             String playerText = IjkVideoView.getPlayerText(this, player);
-            //mToastTextView.setText(playerText);
-            //mMediaController.showOnce(mToastTextView);
             return true;
         } else if (id == R.id.action_toggle_render) {
             int render = mVideoView.toggleRender();
             String renderText = IjkVideoView.getRenderText(this, render);
-            //mToastTextView.setText(renderText);
-            //mMediaController.showOnce(mToastTextView);
             return true;
         } else if (id == R.id.action_show_info) {
             mVideoView.showMediaInfo();
@@ -120,4 +122,55 @@ public class VideoActivity extends AppCompatActivity  {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.button:
+                VDVideoScreenOrientation.setPortrait(this);
+                VDVideoScreenOrientation.setStatusBarVisible(this, false);
+                changeToP();
+                break;
+            case R.id.button2:
+                VDVideoScreenOrientation.setLandscape(this);
+                VDVideoScreenOrientation.setStatusBarVisible(this, true);
+                changeToRoot();
+                break;
+        }
+    }
+
+    /**
+     * 将当前给定的容器，提升到activity的顶层容器中
+     */
+    private void changeToRoot() {
+        mPGroup.removeAllViews();
+        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
+        if (root != null) {
+            try {
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+                root.addView(mVideoView, lp);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private void changeToP() {
+        ViewGroup root = (ViewGroup) findViewById(android.R.id.content);
+        root.removeView(mVideoView);
+        if (root != null) {
+            try {
+                ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT);
+                mPGroup.addView(mVideoView, lp);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
 }

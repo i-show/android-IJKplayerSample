@@ -14,6 +14,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <FrameLayout
+        android:id="@+id/content_p"
         android:layout_width="match_parent"
         android:layout_height="220dp">
 
@@ -24,4 +25,17 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="New Por" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Land" />
 </LinearLayout>
