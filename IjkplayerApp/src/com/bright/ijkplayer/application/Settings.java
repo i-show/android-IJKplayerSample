@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tv.danmaku.ijk.media.sample.application;
+package com.bright.ijkplayer.application;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,4 +1,4 @@
-package tv.danmaku.ijk.media.sample.utils;
+package com.bright.ijkplayer.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

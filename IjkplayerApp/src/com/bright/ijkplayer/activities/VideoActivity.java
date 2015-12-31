@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-package tv.danmaku.ijk.media.sample.activities;
+package com.bright.ijkplayer.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,17 +26,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.bright.ijkplayer.utils.VDVideoScreenOrientation;
+
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 import tv.danmaku.ijk.media.sample.R;
-import tv.danmaku.ijk.media.sample.utils.VDVideoScreenOrientation;
-import tv.danmaku.ijk.media.sample.widget.media.AndroidMediaController;
-import tv.danmaku.ijk.media.sample.widget.media.IjkVideoView;
+
+import com.bright.ijkplayer.widget.media.IjkVideoView;
+import com.bright.ijkplayer.widget.media.MediaController;
 
 public class VideoActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "VideoActivity";
 
-
-    private AndroidMediaController mMediaController;
+    private MediaController mMediaController;
     private IjkVideoView mVideoView;
 
     private boolean mBackPressed;
@@ -51,9 +51,8 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         // init UI
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         ActionBar actionBar = getSupportActionBar();
-        mMediaController = new AndroidMediaController(this, false);
+        mMediaController = new MediaController(this, false);
         mMediaController.setSupportActionBar(actionBar);
 
         // init player

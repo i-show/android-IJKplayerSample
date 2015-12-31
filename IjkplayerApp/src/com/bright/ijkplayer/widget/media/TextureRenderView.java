@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tv.danmaku.ijk.media.sample.widget.media;
+package com.bright.ijkplayer.widget.media;
 
 import android.annotation.TargetApi;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package tv.danmaku.ijk.media.sample.widget.media;
+package com.bright.ijkplayer.widget.media;
 
 import android.content.Context;
 import android.os.Handler;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package tv.danmaku.ijk.media.sample.widget.media;
+package com.bright.ijkplayer.widget.media;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -37,6 +37,8 @@ import android.widget.FrameLayout;
 import android.widget.MediaController;
 import android.widget.TableLayout;
 
+import com.bright.ijkplayer.application.Settings;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,8 +54,8 @@ import tv.danmaku.ijk.media.player.misc.IMediaFormat;
 import tv.danmaku.ijk.media.player.misc.ITrackInfo;
 import tv.danmaku.ijk.media.player.misc.IjkMediaFormat;
 import tv.danmaku.ijk.media.sample.R;
-import tv.danmaku.ijk.media.sample.application.Settings;
-import tv.danmaku.ijk.media.sample.services.MediaPlayerService;
+
+import com.bright.ijkplayer.services.MediaPlayerService;
 
 public class IjkVideoView extends FrameLayout implements MediaController.MediaPlayerControl {
     private String TAG = "IjkVideoView";
