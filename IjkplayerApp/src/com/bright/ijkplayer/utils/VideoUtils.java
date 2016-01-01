@@ -23,7 +23,7 @@ import java.util.Locale;
 
 import dalvik.system.PathClassLoader;
 
-public class VDUtility {
+public class VideoUtils {
 
     public enum eAndroidOS {
         UNKNOWN, MIUI, EmotionUI, Flyme, NubiaUI, Nokia_X, ColorOS, HTC, ZTE, FuntouchOS,
@@ -41,7 +41,7 @@ public class VDUtility {
 
     private static String mSystemProperty = getSystemProperty();
 
-    private final static String TAG = "VDUtility";
+    private final static String TAG = "VideoUtils";
 
     public static String getAppVersion(Context context) {
         return "";
@@ -380,7 +380,7 @@ public class VDUtility {
             return false;
         }
         // File file = Environment.getExternalStorageDirectory();
-        // if (VDUtility.isSdcardReady() && file != null &&
+        // if (VideoUtils.isSdcardReady() && file != null &&
         // url.startsWith(file.getAbsolutePath())) {
         // return true;
         // }

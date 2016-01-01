@@ -16,7 +16,7 @@ import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 
-public class VDVideoScreenOrientation {
+public class ScreenOrientationUtils {
 
     private static boolean mIsNeedSensor = true;
 
@@ -84,7 +84,7 @@ public class VDVideoScreenOrientation {
         return -1;
     }
 
-    public static boolean getIsLandscape(Context context) {
+    public static boolean isLandscape(Context context) {
         if (context != null) {
             return ((Activity) context).getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         }
@@ -107,7 +107,7 @@ public class VDVideoScreenOrientation {
         if (isVisible) {
             lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
             ((Activity) context).getWindow().setAttributes(lp);
-            if (!VDUtility.isSamsungNoteII()) {
+            if (!VideoUtils.isSamsungNoteII()) {
                 ((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
             }
         } else {

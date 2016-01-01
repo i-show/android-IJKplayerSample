@@ -17,22 +17,18 @@
 package com.bright.ijkplayer.activities;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
-import com.bright.ijkplayer.utils.VDVideoScreenOrientation;
+import com.bright.ijkplayer.R;
+import com.bright.ijkplayer.widget.LoadingView;
+import com.bright.ijkplayer.widget.MediaController;
+import com.bright.ijkplayer.widget.media.IjkVideoView;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
-import tv.danmaku.ijk.media.sample.R;
-
-import com.bright.ijkplayer.widget.media.IjkVideoView;
-import com.bright.ijkplayer.widget.media.MediaController;
 
 public class VideoActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "VideoActivity";
@@ -49,12 +45,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_player);
 
         // init UI
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
-        mMediaController = new MediaController(this, false);
-        mMediaController.setSupportActionBar(actionBar);
-
+        mMediaController = new MediaController(this);
         // init player
         IjkMediaPlayer.loadLibrariesOnce(null);
         IjkMediaPlayer.native_profileBegin("libijkplayer.so");
@@ -66,10 +57,6 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
         mVideoView.setVideoPath("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear4/prog_index.m3u8");
         mVideoView.start();
 
-        Button bu1 = (Button) findViewById(R.id.button);
-        bu1.setOnClickListener(this);
-        Button bu2 = (Button) findViewById(R.id.button2);
-        bu2.setOnClickListener(this);
     }
 
     @Override
@@ -115,7 +102,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
             String renderText = IjkVideoView.getRenderText(this, render);
             return true;
         } else if (id == R.id.action_show_info) {
-            mVideoView.showMediaInfo();
+            //mVideoView.showMediaInfo();
         } else if (id == R.id.action_show_tracks) {
 
         }
@@ -125,18 +112,7 @@ public class VideoActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.button:
-                VDVideoScreenOrientation.setPortrait(this);
-                VDVideoScreenOrientation.setStatusBarVisible(this, false);
-                changeToP();
-                break;
-            case R.id.button2:
-                VDVideoScreenOrientation.setLandscape(this);
-                VDVideoScreenOrientation.setStatusBarVisible(this, true);
-                changeToRoot();
-                break;
-        }
+
     }
 
     /**
