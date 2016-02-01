@@ -10,53 +10,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.util.DisplayMetrics;
 import android.view.WindowManager;
-
 
 import java.lang.reflect.Field;
 
 public class ScreenOrientationUtils {
 
-    private static boolean mIsNeedSensor = true;
-
-    public static boolean getIsNeedSensor() {
-        return mIsNeedSensor;
-    }
-
-    public static void setNoSensor(Context context) {
-        mIsNeedSensor = false;
-        if (context != null) {
-            DisplayMetrics metrics = new DisplayMetrics();
-            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            int w = metrics.widthPixels;
-            int h = metrics.heightPixels;
-            if (w > h) {
-                ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            } else {
-                ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
-        }
-    }
-
-    public static void setSensor(Context context) {
-        mIsNeedSensor = true;
-        if (context != null) {
-            ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
-        }
-    }
-
-    public static void setOnlyLandscape(Context context) {
-        mIsNeedSensor = false;
-        if (context != null) {
-            if (android.os.Build.VERSION.SDK_INT >= 9) {
-                ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
-            }
-        }
-    }
 
     public static void setLandscape(Context context) {
-        mIsNeedSensor = true;
         if (context != null) {
             if (android.os.Build.VERSION.SDK_INT >= 9) {
                 ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
@@ -67,7 +28,6 @@ public class ScreenOrientationUtils {
     }
 
     public static void setPortrait(Context context) {
-        mIsNeedSensor = true;
         if (context != null) {
             if (android.os.Build.VERSION.SDK_INT >= 9) {
                 ((Activity) context).setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
@@ -77,23 +37,17 @@ public class ScreenOrientationUtils {
         }
     }
 
-    public static int getOrientationConfig(Context context) {
-        if (context != null) {
-            return ((Activity) context).getRequestedOrientation();
-        }
-        return -1;
-    }
 
     public static boolean isLandscape(Context context) {
         if (context != null) {
-            return ((Activity) context).getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+            return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
         }
         return false;
     }
 
-    public static boolean getIsPortrait(Context context) {
+    public static boolean isPortrait(Context context) {
         if (context != null) {
-            return ((Activity) context).getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+            return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         }
         return false;
     }
@@ -106,14 +60,11 @@ public class ScreenOrientationUtils {
         WindowManager.LayoutParams lp = context.getWindow().getAttributes();
         if (isVisible) {
             lp.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-            ((Activity) context).getWindow().setAttributes(lp);
-            if (!VideoUtils.isSamsungNoteII()) {
-                ((Activity) context).getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-            }
+            context.getWindow().setAttributes(lp);
         } else {
             lp.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            ((Activity) context).getWindow().setAttributes(lp);
-            ((Activity) context).getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+            context.getWindow().setAttributes(lp);
+            context.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
     }
 

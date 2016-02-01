@@ -17,6 +17,7 @@
 package com.bright.ijkplayer.widget.media;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -37,8 +38,7 @@ import android.widget.FrameLayout;
 import android.widget.MediaController;
 
 import com.bright.ijkplayer.R;
-import com.bright.ijkplayer.application.Settings;
-import com.bright.ijkplayer.services.MediaPlayerService;
+import com.bright.ijkplayer.settings.Settings;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -520,12 +520,8 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                                 .setPositiveButton(R.string.VideoView_error_button,
                                         new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton) {
-                                            /* If we get here, there is no onError listener, so
-                                             * at least inform them that the video is over.
-                                             */
-                                                if (mOnCompletionListener != null) {
-                                                    mOnCompletionListener.onCompletion(mMediaPlayer);
-                                                }
+                                                Activity activity = (Activity) getContext();
+                                                activity.finish();
                                             }
                                         })
                                 .setCancelable(false)
@@ -1021,24 +1017,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private boolean mEnableBackgroundPlay = false;
 
     private void initBackground() {
-        mEnableBackgroundPlay = mSettings.getEnableBackgroundPlay();
-        if (mEnableBackgroundPlay) {
-            MediaPlayerService.intentToStart(getContext());
-            mMediaPlayer = MediaPlayerService.getMediaPlayer();
-        }
+        // TODO
     }
 
-    public boolean isBackgroundPlayEnabled() {
-        return mEnableBackgroundPlay;
-    }
-
-    public void enterBackground() {
-        MediaPlayerService.setMediaPlayer(mMediaPlayer);
-    }
-
-    public void stopBackgroundPlay() {
-        MediaPlayerService.setMediaPlayer(null);
-    }
 
     private String buildResolution(int width, int height, int sarNum, int sarDen) {
         StringBuilder sb = new StringBuilder();

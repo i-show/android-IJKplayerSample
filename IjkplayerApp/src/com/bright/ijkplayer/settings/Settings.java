@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.bright.ijkplayer.application;
+package com.bright.ijkplayer.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -39,7 +39,7 @@ public class Settings {
 
     public boolean getEnableBackgroundPlay() {
         String key = mAppContext.getString(R.string.pref_key_enable_background_play);
-        return mSharedPreferences.getBoolean(key, true);
+        return mSharedPreferences.getBoolean(key, false);
     }
 
     public int getPlayer() {
@@ -64,7 +64,7 @@ public class Settings {
 
     public boolean getUsingOpenSLES() {
         String key = mAppContext.getString(R.string.pref_key_using_opensl_es);
-        return mSharedPreferences.getBoolean(key, false);
+        return mSharedPreferences.getBoolean(key, true);
     }
 
     public String getPixelFormat() {

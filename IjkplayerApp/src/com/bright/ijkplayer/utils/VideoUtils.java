@@ -327,10 +327,6 @@ public class VideoUtils {
         return Build.MODEL;
     }
 
-    public static String getCPU() {
-        return Build.CPU_ABI;
-    }
-
     public static String getSDKRelease() {
         return Build.VERSION.RELEASE;
     }
@@ -342,61 +338,4 @@ public class VideoUtils {
     public static eAndroidOS getOS() {
         return filterOS();
     }
-
-    public static boolean isMeizu() {
-        String brand = getBrand();
-        eAndroidOS os = getOS();
-        if (brand.equals("Meizu") && os == eAndroidOS.Flyme) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean isSamsungNoteII() {
-        String brand = getBrand();
-        String model = getModel();
-
-        if (brand.equals("samsung") && model.equals("GT-N7100")) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean isXiaomi3() {
-        String brand = getBrand();
-        String model = getModel();
-
-        if (brand.equals("Xiaomi") && model.equals("MI 3")) {
-            return true;
-        }
-
-        return false;
-    }
-
-    public static boolean isLocalUrl(String url) {
-        if (url == null) {
-            return false;
-        }
-        // File file = Environment.getExternalStorageDirectory();
-        // if (VideoUtils.isSdcardReady() && file != null &&
-        // url.startsWith(file.getAbsolutePath())) {
-        // return true;
-        // }
-        if (url.startsWith("http"))
-            return false;
-        // return false;
-        return true;
-    }
-
-    public static boolean isSdcardReady() {
-        try {
-            return Environment.MEDIA_MOUNTED.equals(Environment
-                    .getExternalStorageState());
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
 }
