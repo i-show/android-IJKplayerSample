@@ -1,0 +1,62 @@
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion COMPILE_SDK_VERSION as int
+    buildToolsVersion BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        minSdkVersion MIN_SDK_VERSION as int
+        targetSdkVersion TARGET_SDK_VERSION as int
+    }
+
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+        packagingOptions {
+            exclude 'META-INF/DEPENDENCIES.txt'
+            exclude 'META-INF/LICENSE.txt'
+            exclude 'META-INF/NOTICE.txt'
+            exclude 'META-INF/NOTICE'
+            exclude 'META-INF/LICENSE'
+            exclude 'META-INF/DEPENDENCIES'
+            exclude 'META-INF/notice.txt'
+            exclude 'META-INF/license.txt'
+            exclude 'META-INF/dependencies.txt'
+            exclude 'META-INF/LGPL2.1'
+        }
+    }
+}
+
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "com.android.support:appcompat-v7:${SUPPORT_V7_VERSION}"
+    compile "com.android.support:support-annotations:${SUPPORT_V7_VERSION}"
+
+    compile 'tv.danmaku.ijk.media:ijkplayer-java:0.4.4.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.4.4.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.4.4.1'
+    //compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.4.4.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.4.4.1'
+    compile 'tv.danmaku.ijk.media:ijkplayer-exo:0.4.4.1'
+}

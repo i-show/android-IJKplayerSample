@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="ijkplayer-armv7a-0.4.4.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/IjkplayerApp/build/intermediates/exploded-aar/tv.danmaku.ijk.media/ijkplayer-armv7a/0.4.4.1/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/IjkplayerApp/build/intermediates/exploded-aar/tv.danmaku.ijk.media/ijkplayer-armv7a/0.4.4.1/res" />
+      <root url="jar://$PROJECT_DIR$/VideoPlayer/build/intermediates/exploded-aar/tv.danmaku.ijk.media/ijkplayer-armv7a/0.4.4.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/VideoPlayer/build/intermediates/exploded-aar/tv.danmaku.ijk.media/ijkplayer-armv7a/0.4.4.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
