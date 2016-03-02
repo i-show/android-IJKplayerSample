@@ -1,3 +1,21 @@
+/**
+ * Copyright (C) 2016 The yuhaiyang Android Source Project
+ * <p/>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * @author: y.haiyang@qq.com
+ */
+
 package com.bright.ijkplayer.widget;
 
 import android.app.Activity;
@@ -27,11 +45,19 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 
 public class MediaController extends FrameLayout implements IMediaController, View.OnClickListener {
-    private static final String TAG = MediaController.class.getSimpleName();
+    private static final String TAG = "MediaController";
     private static final int HANDLER_HIDE = 1001;
     private static final int HANDLER_SHOW_PROGRESS = 1002;
+    /**
+     * 设置Activity位sensor控制
+     */
+    private static final int HANDLER_SCREEN_SENSOR = 1003;
 
     private static final int DEFAULT_TIME_OUT = 3500;
+    /**
+     * 多长时间后重新设置为sensor控制
+     */
+    private static final int DEFAULT_DELAY_TIME_SET_SENSOR = 5000;
     private boolean mDragging;
 
     private IjkVideoView mParentView;
@@ -66,6 +92,11 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
                         msg = obtainMessage(HANDLER_SHOW_PROGRESS);
                         sendMessageDelayed(msg, 1000 - (pos % 1000));
                     }
+
+                    break;
+                case HANDLER_SCREEN_SENSOR:
+                    Log.i(TAG, "handleMessage: HANDLER_SCREEN_SENSOR");
+                    ScreenOrientationUtils.setSensor(getContext());
                     break;
             }
         }
@@ -142,6 +173,8 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mPortraitVideoRootView = (ViewGroup) mParentView.getParent();
 
         setVisibility(GONE);
+
+        mHandler.sendEmptyMessage(HANDLER_SCREEN_SENSOR);
     }
 
     public void setLandVideoRootView(ViewGroup root) {
@@ -242,10 +275,10 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             }
 
             if (mPlayer.isPlaying()) {
-                mStateView.setImageResource(R.drawable.play_ctrl_play_bg);
+                mStateView.setImageResource(R.drawable.ic_play_play);
                 mPlayer.pause();
             } else {
-                mStateView.setImageResource(R.drawable.play_ctrl_pause_bg);
+                mStateView.setImageResource(R.drawable.ic_play_pause);
                 mPlayer.start();
                 mHandler.sendEmptyMessageDelayed(HANDLER_SHOW_PROGRESS, 1000);
             }
@@ -267,11 +300,11 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     /**
      * 将当前给定的容器，提升到activity的顶层容器中
      */
-    private void changeLand() {
+    public void changeLand() {
 
         Activity activity = (Activity) getContext();
         mPortraitVideoRootView.removeView(mParentView);
-        mFullScreenImage.setImageResource(R.drawable.play_ctrl_smallscreen_bg);
+        mFullScreenImage.setImageResource(R.drawable.ic_to_smallscreen);
         //mTopPanel.setVisibility(VISIBLE);
         ViewGroup root;
         if (mLandVideoRootView != null) {
@@ -281,8 +314,10 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         }
         if (root != null) {
             try {
-                ScreenOrientationUtils.setLandscape(activity);
+                ScreenOrientationUtils.setLandscape(activity, true);
                 ScreenOrientationUtils.setStatusBarVisible(activity, true);
+                mHandler.removeMessages(HANDLER_SCREEN_SENSOR);
+                mHandler.sendEmptyMessageDelayed(HANDLER_SCREEN_SENSOR, DEFAULT_DELAY_TIME_SET_SENSOR);
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT);
@@ -304,10 +339,12 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             root = (ViewGroup) activity.findViewById(android.R.id.content);
         }
         root.removeView(mParentView);
-        mFullScreenImage.setImageResource(R.drawable.play_ctrl_fullscreen_bg);
+        mFullScreenImage.setImageResource(R.drawable.ic_to_fullscreen);
         try {
-            ScreenOrientationUtils.setPortrait(activity);
+            ScreenOrientationUtils.setPortrait(activity, true);
             ScreenOrientationUtils.setStatusBarVisible(activity, false);
+            mHandler.removeMessages(HANDLER_SCREEN_SENSOR);
+            mHandler.sendEmptyMessageDelayed(HANDLER_SCREEN_SENSOR, DEFAULT_DELAY_TIME_SET_SENSOR);
             ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
@@ -319,9 +356,9 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
     private void setPlayStatus() {
         if (mPlayer.isPlaying()) {
-            mStateView.setImageResource(R.drawable.play_ctrl_pause_bg);
+            mStateView.setImageResource(R.drawable.ic_play_pause);
         } else {
-            mStateView.setImageResource(R.drawable.play_ctrl_play_bg);
+            mStateView.setImageResource(R.drawable.ic_play_play);
         }
     }
 

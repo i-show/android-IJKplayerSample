@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <!--
   Copyright (C) 2016 The yuhaiyang Android Source Project
 
@@ -20,9 +18,9 @@
   -->
 
 
-<!-- 左右滑动 的显示  -->
+<!-- 广告显示 的显示  -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slide_content"
+    android:id="@+id/ad_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

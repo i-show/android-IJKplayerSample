@@ -1,7 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright (C) 2016 The yuhaiyang Android Source Project
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,12 +16,9 @@
   @author: y.haiyang@qq.com
   -->
 
-
-<!-- 左右滑动 的显示  -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slide_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-</FrameLayout>
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_loading"
+    android:fromDegrees="0"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="360" />
