@@ -51,13 +51,25 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
      */
     private static final int HANDLER_HIDE_NORMAL_FEATURES = 1001;
     /**
+     * 显示普通功能区域
+     */
+    private static final int HANDLER_SHOW_NORMAL_FEATURES = 1002;
+    /**
      * 更新进度条
      */
-    private static final int HANDLER_UPDATE_PROGRESS = 1002;
+    private static final int HANDLER_UPDATE_PROGRESS = 1003;
     /**
      * 设置Activity位sensor控制
      */
-    private static final int HANDLER_SCREEN_SENSOR = 1003;
+    private static final int HANDLER_SCREEN_SENSOR = 1004;
+    /**
+     * 隐藏loading
+     */
+    private static final int HANDLER_HIDE_LOADING = 1005;
+    /**
+     * 显示loading
+     */
+    private static final int HANDLER_SHOW_LOADING = 1006;
     /**
      * 默认消失的时间
      */
@@ -92,9 +104,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     private ViewGroup mLandVideoRootView;
     private MediaPlayerControl mPlayer;
 
-
     private CallBack mCallBack;
-    private long mDownloadTime;
 
     private Handler mHandler = new Handler() {
         @Override
@@ -102,7 +112,11 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             super.handleMessage(msg);
             switch (msg.what) {
                 case HANDLER_HIDE_NORMAL_FEATURES:
-                    setVisibility(GONE);
+                    mNormalFeaturesContent.setVisibility(GONE);
+                    break;
+                case HANDLER_SHOW_NORMAL_FEATURES:
+                    mNormalFeaturesContent.setVisibility(VISIBLE);
+                    setPlayStatus();
                     break;
                 case HANDLER_UPDATE_PROGRESS:
                     int pos = setProgress();
@@ -148,7 +162,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mFullScreenView = (ImageView) findViewById(R.id.full_screen);
         mFullScreenView.setOnClickListener(this);
 
-        mStartOrPauseView = (ImageView) findViewById(R.id.state);
+        mStartOrPauseView = (ImageView) findViewById(R.id.start_or_pause);
         mStartOrPauseView.setOnClickListener(this);
 
         mPlayNextView = (ImageView) findViewById(R.id.play_next);
@@ -197,10 +211,10 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
         mPortraitVideoRootView = (ViewGroup) mVideoView.getParent();
 
-        mNormalFeaturesContent.setVisibility(GONE);
         mLoadingContent.setVisibility(VISIBLE);
 
         mHandler.sendEmptyMessage(HANDLER_SCREEN_SENSOR);
+        mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
     }
 
     /**
@@ -222,8 +236,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     @Override
     public void hide() {
         Log.i(TAG, "timeout hide");
-        mNormalFeaturesContent.setVisibility(GONE);
-        mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+        mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
         mHandler.removeMessages(HANDLER_UPDATE_PROGRESS);
     }
 
@@ -237,20 +250,19 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     public void show(int timeout) {
         Log.i(TAG, "timeout show = " + timeout);
 
-        mNormalFeaturesContent.setVisibility(VISIBLE);
-        setPlayStatus();
-        setProgress();
-
-        boolean isLand = ScreenOrientationUtils.isLandscape(getContext());
-        Log.i(TAG, "isLand = " + isLand);
+        mHandler.sendEmptyMessage(HANDLER_SHOW_NORMAL_FEATURES);
         mHandler.sendEmptyMessage(HANDLER_UPDATE_PROGRESS);
+
+        mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
         mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, timeout);
+
+
     }
 
 
     @Override
     public void showOnce(View view) {
-
+        //TODO
     }
 
     public void setPlayNextVisibility(int visiablilty) {
@@ -262,17 +274,9 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 Log.i(TAG, "dispatchTouchEvent ACTION_DOWN");
-                mDownloadTime = System.currentTimeMillis();
-                mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
                 break;
             case MotionEvent.ACTION_UP:
                 Log.i(TAG, "dispatchTouchEvent ACTION_UP");
-                long time = System.currentTimeMillis();
-                if (time - mDownloadTime < 500) {
-                    mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
-                } else {
-                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
-                }
                 break;
         }
         return super.dispatchTouchEvent(ev);
@@ -280,7 +284,8 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return true;
+        // 不处理任何事件， 都交给父类处理
+        return false;
     }
 
     @Override
@@ -292,7 +297,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             } else {
                 changeLand(false);
             }
-        } else if (id == R.id.state) {
+        } else if (id == R.id.start_or_pause) {
 
             if (mCallBack != null) {
                 mCallBack.onPlay(!mPlayer.isPlaying());
@@ -417,6 +422,13 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         return position;
     }
 
+    /**
+     * 普通功能区是否可见
+     */
+    private boolean isNormalFeaturesVisible() {
+        return mNormalFeaturesContent.getVisibility() == VISIBLE;
+    }
+
     // There are two scenarios that can trigger the seekbar listener to trigger:
     //
     // The first is the user using the touchpad to adjust the posititon of the
@@ -510,13 +522,14 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         public void onPrepared(IMediaPlayer mp) {
             mLoadingContent.setVisibility(GONE);
         }
+
     };
 
     public void setCallBack(CallBack callBack) {
         mCallBack = callBack;
     }
 
-    
+
     public interface CallBack {
         void onPlay(boolean isPlaying);
 

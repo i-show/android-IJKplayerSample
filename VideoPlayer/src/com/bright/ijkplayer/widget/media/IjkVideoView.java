@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 The yuhaiyang Android Source Project
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -112,27 +112,19 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private int mVideoSarNum;
     private int mVideoSarDen;
 
-
     public IjkVideoView(Context context) {
-        super(context);
-        initVideoView(context);
+        this(context, null);
     }
 
     public IjkVideoView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public IjkVideoView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
         initVideoView(context);
     }
 
-    public IjkVideoView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        initVideoView(context);
-    }
-
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public IjkVideoView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        initVideoView(context);
-    }
 
     // REMOVED: onMeasure
     // REMOVED: onInitializeAccessibilityEvent
@@ -143,7 +135,6 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         mAppContext = context.getApplicationContext();
         mSettings = new Settings(mAppContext);
 
-        initBackground();
         initRenders();
 
         mVideoWidth = 0;
@@ -1017,10 +1008,6 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     //-------------------------
 
     private boolean mEnableBackgroundPlay = false;
-
-    private void initBackground() {
-        // TODO
-    }
 
 
     private String buildResolution(int width, int height, int sarNum, int sarDen) {
