@@ -58,7 +58,7 @@ public class VideoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (ScreenOrientationUtils.isLandscape(this)) {
-            mMediaController.changePortrait();
+            mMediaController.changePortrait(false);
         } else {
             super.onBackPressed();
         }
@@ -85,9 +85,9 @@ public class VideoActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         // 切换到横屏
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mMediaController.changeLand();
+            mMediaController.changeLand(true);
         } else {
-            mMediaController.changePortrait();
+            mMediaController.changePortrait(true);
 
         }
     }

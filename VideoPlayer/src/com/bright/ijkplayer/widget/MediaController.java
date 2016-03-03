@@ -46,13 +46,21 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 public class MediaController extends FrameLayout implements IMediaController, View.OnClickListener {
     private static final String TAG = "MediaController";
-    private static final int HANDLER_HIDE = 1001;
-    private static final int HANDLER_SHOW_PROGRESS = 1002;
+    /**
+     * 隐藏普通功能区域
+     */
+    private static final int HANDLER_HIDE_NORMAL_FEATURES = 1001;
+    /**
+     * 更新进度条
+     */
+    private static final int HANDLER_UPDATE_PROGRESS = 1002;
     /**
      * 设置Activity位sensor控制
      */
     private static final int HANDLER_SCREEN_SENSOR = 1003;
-
+    /**
+     * 默认消失的时间
+     */
     private static final int DEFAULT_TIME_OUT = 3500;
     /**
      * 多长时间后重新设置为sensor控制
@@ -60,19 +68,31 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     private static final int DEFAULT_DELAY_TIME_SET_SENSOR = 5000;
     private boolean mDragging;
 
-    private IjkVideoView mParentView;
-    private SeekBar mProgress;
-    private TextView mEndTime, mCurrentTime;
+    private IjkVideoView mVideoView;
+    /**
+     * 普通功能的包裹区域
+     */
+    private View mNormalFeaturesContent;
+    // Top panel 中包裹的
     private TextView mTitle;
-    private ImageView mFullScreenImage;
-    private ImageView mStateView;
-    private ImageView mPlayNext;
+    // 进度条
+    private SeekBar mProgress;
+    // 当前时间和总共多长时间
+    private TextView mCurrentTime, mEndTime;
+
+    private ImageView mFullScreenView;
+    private ImageView mStartOrPauseView;
+    private ImageView mPlayNextView;
+    /**
+     * 加载功能的包裹区域
+     */
+    private View mLoadingContent;
 
     private ViewGroup mPortraitVideoRootView;
     private ViewGroup mLandVideoRootView;
     private MediaPlayerControl mPlayer;
-    private View mLoadingView;
-    private View mTopPanel;
+
+
     private CallBack mCallBack;
     private long mDownloadTime;
 
@@ -81,15 +101,16 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case HANDLER_HIDE:
+                case HANDLER_HIDE_NORMAL_FEATURES:
                     setVisibility(GONE);
                     break;
-                case HANDLER_SHOW_PROGRESS:
+                case HANDLER_UPDATE_PROGRESS:
                     int pos = setProgress();
                     Log.i(TAG, "isPlaying = " + mPlayer.isPlaying());
-                    Log.i(TAG, "isVisiable = " + isVisiable());
-                    if (mPlayer.isPlaying() && isVisiable()) {
-                        msg = obtainMessage(HANDLER_SHOW_PROGRESS);
+                    boolean isVisiable = mNormalFeaturesContent.getVisibility() == View.VISIBLE;
+                    Log.i(TAG, "isVisiable = " + isVisiable);
+                    if (mPlayer.isPlaying() && isVisiable) {
+                        msg = obtainMessage(HANDLER_UPDATE_PROGRESS);
                         sendMessageDelayed(msg, 1000 - (pos % 1000));
                     }
 
@@ -119,33 +140,36 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
         layoutInflater.inflate(R.layout.media_controller, this, true);
 
-        mTopPanel = findViewById(R.id.topPanel);
+        mNormalFeaturesContent = findViewById(R.id.normal_content);
         ImageView back = (ImageView) findViewById(R.id.back);
         back.setOnClickListener(this);
         mTitle = (TextView) findViewById(R.id.title);
 
-        mFullScreenImage = (ImageView) findViewById(R.id.full_screen);
-        mFullScreenImage.setOnClickListener(this);
+        mFullScreenView = (ImageView) findViewById(R.id.full_screen);
+        mFullScreenView.setOnClickListener(this);
 
-        mStateView = (ImageView) findViewById(R.id.state);
-        mStateView.setOnClickListener(this);
+        mStartOrPauseView = (ImageView) findViewById(R.id.state);
+        mStartOrPauseView.setOnClickListener(this);
 
-        mPlayNext = (ImageView) findViewById(R.id.play_next);
-        mPlayNext.setOnClickListener(this);
+        mPlayNextView = (ImageView) findViewById(R.id.play_next);
+        mPlayNextView.setOnClickListener(this);
 
         mProgress = (SeekBar) findViewById(R.id.progress);
         mProgress.setOnSeekBarChangeListener(mSeekListener);
         mProgress.setMax(1000);
+
         mCurrentTime = (TextView) findViewById(R.id.current_time);
         mEndTime = (TextView) findViewById(R.id.end_time);
 
-        mLoadingView = findViewById(R.id.loading_content);
+        // Loading 区域
+        mLoadingContent = findViewById(R.id.loading_content);
+
     }
 
 
     @Override
     public boolean isShowing() {
-        return isVisiable();
+        return mNormalFeaturesContent.getVisibility() == View.VISIBLE;
     }
 
     @Override
@@ -154,7 +178,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             return;
         }
         // 如果已经设置了 那么就直接退出就好
-        if (mParentView != null) {
+        if (mVideoView != null) {
             return;
         }
 
@@ -164,19 +188,24 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             ((ViewGroup) parent).removeView(this);
         }
 
-        mParentView = (IjkVideoView) view;
-        mParentView.addView(this);
-        mParentView.bringChildToFront(this);
-        mParentView.setOnInfoListener(mInfoListener);
-        mParentView.setOnCompletionListener(mCompletionListener);
+        mVideoView = (IjkVideoView) view;
+        mVideoView.addView(this);
+        mVideoView.bringChildToFront(this);
+        mVideoView.setOnInfoListener(mInfoListener);
+        mVideoView.setOnCompletionListener(mCompletionListener);
+        mVideoView.setOnPreparedListener(mPreparedListener);
 
-        mPortraitVideoRootView = (ViewGroup) mParentView.getParent();
+        mPortraitVideoRootView = (ViewGroup) mVideoView.getParent();
 
-        setVisibility(GONE);
+        mNormalFeaturesContent.setVisibility(GONE);
+        mLoadingContent.setVisibility(VISIBLE);
 
         mHandler.sendEmptyMessage(HANDLER_SCREEN_SENSOR);
     }
 
+    /**
+     * 设置横屏时候的RootView
+     */
     public void setLandVideoRootView(ViewGroup root) {
         mLandVideoRootView = root;
     }
@@ -193,9 +222,9 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     @Override
     public void hide() {
         Log.i(TAG, "timeout hide");
-        setVisibility(GONE);
-        mHandler.removeMessages(HANDLER_HIDE);
-        mHandler.removeMessages(HANDLER_SHOW_PROGRESS);
+        mNormalFeaturesContent.setVisibility(GONE);
+        mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+        mHandler.removeMessages(HANDLER_UPDATE_PROGRESS);
     }
 
     @Override
@@ -208,14 +237,14 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     public void show(int timeout) {
         Log.i(TAG, "timeout show = " + timeout);
 
-        setVisibility(VISIBLE);
+        mNormalFeaturesContent.setVisibility(VISIBLE);
         setPlayStatus();
         setProgress();
 
         boolean isLand = ScreenOrientationUtils.isLandscape(getContext());
         Log.i(TAG, "isLand = " + isLand);
-        mHandler.sendEmptyMessage(HANDLER_SHOW_PROGRESS);
-        mHandler.sendEmptyMessageDelayed(HANDLER_HIDE, timeout);
+        mHandler.sendEmptyMessage(HANDLER_UPDATE_PROGRESS);
+        mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, timeout);
     }
 
 
@@ -225,7 +254,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     }
 
     public void setPlayNextVisibility(int visiablilty) {
-        mPlayNext.setVisibility(visiablilty);
+        mPlayNextView.setVisibility(visiablilty);
     }
 
     @Override
@@ -234,15 +263,15 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             case MotionEvent.ACTION_DOWN:
                 Log.i(TAG, "dispatchTouchEvent ACTION_DOWN");
                 mDownloadTime = System.currentTimeMillis();
-                mHandler.removeMessages(HANDLER_HIDE);
+                mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
                 break;
             case MotionEvent.ACTION_UP:
                 Log.i(TAG, "dispatchTouchEvent ACTION_UP");
                 long time = System.currentTimeMillis();
                 if (time - mDownloadTime < 500) {
-                    mHandler.sendEmptyMessage(HANDLER_HIDE);
+                    mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
                 } else {
-                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE, DEFAULT_TIME_OUT);
+                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
                 }
                 break;
         }
@@ -254,19 +283,14 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         return true;
     }
 
-    private boolean isVisiable() {
-        return getVisibility() == VISIBLE;
-    }
-
-
     @Override
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.full_screen) {
             if (ScreenOrientationUtils.isLandscape(getContext())) {
-                changePortrait();
+                changePortrait(false);
             } else {
-                changeLand();
+                changeLand(false);
             }
         } else if (id == R.id.state) {
 
@@ -275,12 +299,12 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             }
 
             if (mPlayer.isPlaying()) {
-                mStateView.setImageResource(R.drawable.ic_play_play);
+                mStartOrPauseView.setImageResource(R.drawable.ic_play_play);
                 mPlayer.pause();
             } else {
-                mStateView.setImageResource(R.drawable.ic_play_pause);
+                mStartOrPauseView.setImageResource(R.drawable.ic_play_pause);
                 mPlayer.start();
-                mHandler.sendEmptyMessageDelayed(HANDLER_SHOW_PROGRESS, 1000);
+                mHandler.sendEmptyMessageDelayed(HANDLER_UPDATE_PROGRESS, 1000);
             }
         } else if (id == R.id.play_next) {
             if (mCallBack != null) {
@@ -288,7 +312,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             }
         } else if (id == R.id.back) {
             if (ScreenOrientationUtils.isLandscape(getContext())) {
-                changePortrait();
+                changePortrait(false);
             } else {
                 Activity activity = (Activity) getContext();
                 activity.finish();
@@ -298,14 +322,15 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
 
     /**
-     * 将当前给定的容器，提升到activity的顶层容器中
+     * 切换成横屏模式
+     *
+     * @param bySensor 是否是通过sensor来切换的
      */
-    public void changeLand() {
+    public void changeLand(boolean bySensor) {
 
         Activity activity = (Activity) getContext();
-        mPortraitVideoRootView.removeView(mParentView);
-        mFullScreenImage.setImageResource(R.drawable.ic_to_smallscreen);
-        //mTopPanel.setVisibility(VISIBLE);
+        mPortraitVideoRootView.removeView(mVideoView);
+        mFullScreenView.setImageResource(R.drawable.ic_to_smallscreen);
         ViewGroup root;
         if (mLandVideoRootView != null) {
             root = mLandVideoRootView;
@@ -314,14 +339,15 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         }
         if (root != null) {
             try {
-                ScreenOrientationUtils.setLandscape(activity, true);
+                // 如果是通过sensor来切换的那么非强制更换
+                ScreenOrientationUtils.setLandscape(activity, !bySensor);
                 ScreenOrientationUtils.setStatusBarVisible(activity, true);
                 mHandler.removeMessages(HANDLER_SCREEN_SENSOR);
                 mHandler.sendEmptyMessageDelayed(HANDLER_SCREEN_SENSOR, DEFAULT_DELAY_TIME_SET_SENSOR);
                 ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT);
-                root.addView(mParentView, lp);
+                root.addView(mVideoView, lp);
 
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -329,26 +355,30 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         }
     }
 
-    public void changePortrait() {
+    /**
+     * 切换成竖屏模式
+     *
+     * @param bySensor 是否是通过sensor来切换的
+     */
+    public void changePortrait(boolean bySensor) {
         Activity activity = (Activity) getContext();
         ViewGroup root;
-        //mTopPanel.setVisibility(GONE);
         if (mLandVideoRootView != null) {
             root = mLandVideoRootView;
         } else {
             root = (ViewGroup) activity.findViewById(android.R.id.content);
         }
-        root.removeView(mParentView);
-        mFullScreenImage.setImageResource(R.drawable.ic_to_fullscreen);
+        root.removeView(mVideoView);
+        mFullScreenView.setImageResource(R.drawable.ic_to_fullscreen);
         try {
-            ScreenOrientationUtils.setPortrait(activity, true);
+            ScreenOrientationUtils.setPortrait(activity, !bySensor);
             ScreenOrientationUtils.setStatusBarVisible(activity, false);
             mHandler.removeMessages(HANDLER_SCREEN_SENSOR);
             mHandler.sendEmptyMessageDelayed(HANDLER_SCREEN_SENSOR, DEFAULT_DELAY_TIME_SET_SENSOR);
             ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT);
-            mPortraitVideoRootView.addView(mParentView, lp);
+            mPortraitVideoRootView.addView(mVideoView, lp);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -356,9 +386,9 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
     private void setPlayStatus() {
         if (mPlayer.isPlaying()) {
-            mStateView.setImageResource(R.drawable.ic_play_pause);
+            mStartOrPauseView.setImageResource(R.drawable.ic_play_pause);
         } else {
-            mStateView.setImageResource(R.drawable.ic_play_play);
+            mStartOrPauseView.setImageResource(R.drawable.ic_play_play);
         }
     }
 
@@ -408,7 +438,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             // the seekbar and b) once the user is done dragging the thumb
             // we will post one of these messages to the queue again and
             // this ensures that there will be exactly one message queued up.
-            mHandler.removeMessages(HANDLER_SHOW_PROGRESS);
+            mHandler.removeMessages(HANDLER_UPDATE_PROGRESS);
         }
 
         @Override
@@ -436,14 +466,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             long newposition = (duration * bar.getProgress()) / 1000L;
             mPlayer.seekTo((int) newposition);
 
-            //setProgress();
-            //updatePausePlay();
             show(DEFAULT_TIME_OUT);
-
-            // Ensure that progress is properly updated in the future,
-            // the call to show() does not guarantee this because it is a
-            // no-op if we are already showing.
-            //mHandler.sendEmptyMessage(HANDLER_SHOW_PROGRESS);
         }
     };
 
@@ -451,21 +474,22 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         @Override
         public boolean onInfo(IMediaPlayer mp, int what, int extra) {
             Log.i(TAG, "on info changed ");
-            if (isVisiable()) {
+            boolean isVisiable = mNormalFeaturesContent.getVisibility() == VISIBLE;
+            if (isVisiable) {
                 setPlayStatus();
-                mHandler.sendEmptyMessage(HANDLER_SHOW_PROGRESS);
+                mHandler.sendEmptyMessage(HANDLER_UPDATE_PROGRESS);
             }
 
             switch (what) {
                 case IMediaPlayer.MEDIA_INFO_BUFFERING_START:
-                    mLoadingView.setVisibility(VISIBLE);
-                    mHandler.removeMessages(HANDLER_HIDE);
-                    setVisibility(VISIBLE);
+                    mLoadingContent.setVisibility(VISIBLE);
+                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+                    mNormalFeaturesContent.setVisibility(VISIBLE);
                     break;
                 case IMediaPlayer.MEDIA_INFO_BUFFERING_END:
-                    mLoadingView.setVisibility(GONE);
-                    mHandler.removeMessages(HANDLER_HIDE);
-                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE, DEFAULT_TIME_OUT);
+                    mLoadingContent.setVisibility(GONE);
+                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
                     break;
             }
             return false;
@@ -481,10 +505,18 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         }
     };
 
+    private IMediaPlayer.OnPreparedListener mPreparedListener = new IMediaPlayer.OnPreparedListener() {
+        @Override
+        public void onPrepared(IMediaPlayer mp) {
+            mLoadingContent.setVisibility(GONE);
+        }
+    };
+
     public void setCallBack(CallBack callBack) {
         mCallBack = callBack;
     }
 
+    
     public interface CallBack {
         void onPlay(boolean isPlaying);
 
