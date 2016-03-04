@@ -495,13 +495,9 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             switch (what) {
                 case IMediaPlayer.MEDIA_INFO_BUFFERING_START:
                     mLoadingContent.setVisibility(VISIBLE);
-                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
-                    mNormalFeaturesContent.setVisibility(VISIBLE);
                     break;
                 case IMediaPlayer.MEDIA_INFO_BUFFERING_END:
                     mLoadingContent.setVisibility(GONE);
-                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
-                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
                     break;
             }
             return false;
