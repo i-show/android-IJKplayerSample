@@ -47,8 +47,6 @@ public class VideoUtils {
         UNKNOWN, MIUI, EmotionUI, Flyme, NubiaUI, Nokia_X, ColorOS, HTC, ZTE, FuntouchOS,
     }
 
-    ;
-
     public static final String FORMAT_ALL_DATE = "yyyy-MM-dd HH:mm:ss.SSS";
     public static final String FORMAT_TIME = "HH:mm:ss";
     public static final String FORMAT_DATE = "yyyy-MM-dd";

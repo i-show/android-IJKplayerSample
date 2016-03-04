@@ -26,8 +26,6 @@ import android.content.res.Configuration;
 import android.util.Log;
 import android.view.WindowManager;
 
-import java.lang.reflect.Field;
-
 public class ScreenOrientationUtils {
     private static final String TAG = "ScreenOrientationUtils";
 
