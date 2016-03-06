@@ -24,6 +24,8 @@ import android.content.DialogInterface;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
@@ -37,6 +39,7 @@ import android.widget.MediaController;
 
 import com.bright.ijkplayer.R;
 import com.bright.ijkplayer.settings.Settings;
+import com.bright.ijkplayer.utils.VideoUtils;
 
 import java.util.Map;
 
@@ -45,6 +48,26 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class IjkVideoView extends FrameLayout implements MediaController.MediaPlayerControl {
     private static final String TAG = "IjkVideoView";
+    /**
+     * 滑动整个屏幕 进度最多为5分钟
+     */
+    private static final long TIME_VIDEO_WIDTH = 5 * 60 * 1000;
+    /**
+     * 隐藏普通功能区域
+     */
+    private static final int HANDLER_HIDE_NORMAL_FEATURES = 1001;
+    /**
+     * 显示普通功能区域
+     */
+    private static final int HANDLER_SHOW_NORMAL_FEATURES = 1002;
+    /**
+     * 默认消失的时间
+     */
+    private static final int DEFAULT_TIME_OUT = 3500;
+    /**
+     * 有效的移动距离
+     */
+    private static final int EFFECTIVE_MOVING_DISTANCE = 80;
     // settable by the client
     private Uri mUri;
     private Map<String, String> mHeaders;
@@ -57,6 +80,10 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private static final int STATE_PLAYING = 3;
     private static final int STATE_PAUSED = 4;
     private static final int STATE_PLAYBACK_COMPLETED = 5;
+    /**
+     * 无效的位置
+     */
+    private static final int POSITON_UNEFFECTIVE = -1;
 
     // mCurrentState is a VideoView object's current state.
     // mTargetState is the state that a method caller intends to reach.
@@ -77,6 +104,12 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     private int mVideoSarNum;
     private int mVideoSarDen;
 
+    private long mDownTime;
+    private long mEffectiveSlidePosition = POSITON_UNEFFECTIVE;
+    private float mDownX;
+    private float mUpX;
+    private float mMoveX;
+
     // All the stuff we need for playing and showing a video
     private IRenderView.ISurfaceHolder mSurfaceHolder = null;
     private IMediaPlayer mMediaPlayer = null;
@@ -90,6 +123,26 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     private Context mAppContext;
     private IRenderView mRenderView;
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case HANDLER_HIDE_NORMAL_FEATURES:
+                    if (mMediaController != null) {
+                        mMediaController.hide();
+                    }
+                    break;
+                case HANDLER_SHOW_NORMAL_FEATURES:
+                    if (mMediaController != null) {
+                        mMediaController.show();
+                    }
+                    break;
+            }
+        }
+    };
+
 
     public IjkVideoView(Context context) {
         this(context, null);
@@ -144,7 +197,6 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             mRenderView = null;
             removeView(renderUIView);
         }
-
 
         mRenderView = renderView;
         mRenderView.setAspectRatio(IRenderView.AR_ASPECT_FIT_PARENT);
@@ -258,9 +310,6 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     }
 
     public void setMediaController(IMediaController controller) {
-        if (mMediaController != null) {
-            mMediaController.hide();
-        }
         mMediaController = controller;
         attachMediaController();
     }
@@ -270,6 +319,8 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             mMediaController.setMediaPlayer(this);
             mMediaController.setAnchorView(this);
             mMediaController.setEnabled(isInPlaybackState());
+            mMediaController.showLoading();
+            mMediaController.hide();
         }
     }
 
@@ -292,7 +343,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     };
 
     IMediaPlayer.OnPreparedListener mPreparedListener = new IMediaPlayer.OnPreparedListener() {
-        public void onPrepared(IMediaPlayer mp) {
+        public void onPrepared(IMediaPlayer player) {
             mCurrentState = STATE_PREPARED;
 
             // Get the capabilities of the player for this stream
@@ -301,11 +352,14 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             if (mOnPreparedListener != null) {
                 mOnPreparedListener.onPrepared(mMediaPlayer);
             }
+
             if (mMediaController != null) {
                 mMediaController.setEnabled(true);
+                mMediaController.hideLoading();
             }
-            mVideoWidth = mp.getVideoWidth();
-            mVideoHeight = mp.getVideoHeight();
+
+            mVideoWidth = player.getVideoWidth();
+            mVideoHeight = player.getVideoHeight();
 
             // mSeekWhenPrepared may be changed after seekTo() call
             int seekToPosition = mSeekWhenPrepared;
@@ -322,15 +376,6 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                         // start the video here instead of in the callback.
                         if (mTargetState == STATE_PLAYING) {
                             start();
-                            if (mMediaController != null) {
-                                mMediaController.show();
-                            }
-                        } else if (!isPlaying() &&
-                                (seekToPosition != 0 || getCurrentPosition() > 0)) {
-                            if (mMediaController != null) {
-                                // Show the media controls when we're paused into a video and make 'em stick.
-                                mMediaController.show(0);
-                            }
                         }
                     }
                 }
@@ -348,9 +393,10 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         public void onCompletion(IMediaPlayer mp) {
             mCurrentState = STATE_PLAYBACK_COMPLETED;
             mTargetState = STATE_PLAYBACK_COMPLETED;
-            if (mMediaController != null) {
-                mMediaController.hide();
-            }
+
+            mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+            mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
+
             if (mOnCompletionListener != null) {
                 mOnCompletionListener.onCompletion(mMediaPlayer);
             }
@@ -370,7 +416,16 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
                         mRenderView.setVideoRotation(extra);
                     }
                     break;
-
+                case IMediaPlayer.MEDIA_INFO_BUFFERING_START:
+                    if (mMediaController != null) {
+                        mMediaController.showLoading();
+                    }
+                    break;
+                case IMediaPlayer.MEDIA_INFO_BUFFERING_END:
+                    if (mMediaController != null) {
+                        mMediaController.hideLoading();
+                    }
+                    break;
             }
             return true;
         }
@@ -381,9 +436,9 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             Log.d(TAG, "Error: " + framework_err + "," + impl_err);
             mCurrentState = STATE_ERROR;
             mTargetState = STATE_ERROR;
-            if (mMediaController != null) {
-                mMediaController.hide();
-            }
+
+            mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+            mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
 
             /* If an error handler has been supplied, use it and finish. */
             if (mOnErrorListener != null) {
@@ -556,12 +611,44 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         }
     }
 
+    /**
+     * 这里只是处理相关东西，并不截取事件
+     */
     @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (isInPlaybackState() && mMediaController != null) {
-            toggleMediaControlsVisiblity();
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mDownTime = System.currentTimeMillis();
+                mDownX = event.getX();
+                break;
+
+            case MotionEvent.ACTION_MOVE:
+                mMoveX = event.getX() - mDownX;
+                if (mMediaPlayer != null && mEffectiveSlidePosition == POSITON_UNEFFECTIVE && Math.abs(mMoveX) > EFFECTIVE_MOVING_DISTANCE) {
+                    mEffectiveSlidePosition = getCurrentPosition();
+                }
+                if (mMediaController != null && mEffectiveSlidePosition != POSITON_UNEFFECTIVE) {
+                    mMediaController.showSlideView(computeMoveTime(mMoveX), mMoveX);
+                }
+                break;
+
+            case MotionEvent.ACTION_UP:
+                mUpX = event.getX();
+                float x = mUpX - mDownX;
+                long upTime = System.currentTimeMillis();
+                if (upTime - mDownTime < 500 && Math.abs(x) < EFFECTIVE_MOVING_DISTANCE) {
+                    toggleMediaControlsVisiblity();
+                }
+
+                if (mEffectiveSlidePosition != POSITON_UNEFFECTIVE) {
+                    mMediaController.effectiveSlide(computeMoveTime(mMoveX));
+                }
+                mMediaController.hideSlideView();
+                mEffectiveSlidePosition = POSITON_UNEFFECTIVE;
+                break;
         }
-        return false;
+
+        return true;
     }
 
     @Override
@@ -580,41 +667,48 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         if (mMediaController == null && !isKeyCodeSupported && !isInPlaybackState()) {
             return super.onKeyDown(keyCode, event);
         }
-
-
-        if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
-            if (mMediaPlayer.isPlaying()) {
-                pause();
-                mMediaController.show();
-            } else {
-                start();
-                mMediaController.hide();
-            }
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
-            if (!mMediaPlayer.isPlaying()) {
-                start();
-                mMediaController.hide();
-            }
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
-            if (mMediaPlayer.isPlaying()) {
-                pause();
-                mMediaController.show();
-            }
-            return true;
-        } else {
-            toggleMediaControlsVisiblity();
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_HEADSETHOOK:
+            case KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE:
+                if (mMediaPlayer.isPlaying()) {
+                    pause();
+                    mHandler.sendEmptyMessage(HANDLER_SHOW_NORMAL_FEATURES);
+                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
+                } else {
+                    start();
+                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+                    mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
+                }
+                break;
+            case KeyEvent.KEYCODE_MEDIA_PLAY:
+                if (!mMediaPlayer.isPlaying()) {
+                    start();
+                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+                    mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
+                }
+                break;
+            case KeyEvent.KEYCODE_MEDIA_STOP:
+            case KeyEvent.KEYCODE_MEDIA_PAUSE:
+                if (mMediaPlayer.isPlaying()) {
+                    pause();
+                    mHandler.sendEmptyMessage(HANDLER_SHOW_NORMAL_FEATURES);
+                    mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+                    mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
+                }
+                break;
         }
-
         return super.onKeyDown(keyCode, event);
     }
 
     private void toggleMediaControlsVisiblity() {
         if (mMediaController.isShowing()) {
-            mMediaController.hide();
+            mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+            mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
         } else {
-            mMediaController.show();
+            mHandler.sendEmptyMessage(HANDLER_SHOW_NORMAL_FEATURES);
+            mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+            mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
         }
     }
 
@@ -724,5 +818,25 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_CODEC, "skip_loop_filter", 48);
 
         return ijkMediaPlayer;
+    }
+
+
+    private long computeMoveTime(float distance) {
+        long time = (long) (mEffectiveSlidePosition + TIME_VIDEO_WIDTH * distance / getWidth());
+        long duation = getDuration();
+        time = time < 0 ? 0 : time;
+        time = time > duation ? duation : time;
+        return time;
+    }
+
+    public void removeHideAction() {
+        mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+    }
+
+    public void setShowAction() {
+        mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
+        mHandler.removeMessages(HANDLER_SHOW_NORMAL_FEATURES);
+        mHandler.sendEmptyMessage(HANDLER_SHOW_NORMAL_FEATURES);
+        mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, DEFAULT_TIME_OUT);
     }
 }

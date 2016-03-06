@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.ViewUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,14 +47,7 @@ import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 public class MediaController extends FrameLayout implements IMediaController, View.OnClickListener {
     private static final String TAG = "MediaController";
-    /**
-     * 隐藏普通功能区域
-     */
-    private static final int HANDLER_HIDE_NORMAL_FEATURES = 1001;
-    /**
-     * 显示普通功能区域
-     */
-    private static final int HANDLER_SHOW_NORMAL_FEATURES = 1002;
+
     /**
      * 更新进度条
      */
@@ -62,18 +56,6 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
      * 设置Activity位sensor控制
      */
     private static final int HANDLER_SCREEN_SENSOR = 1004;
-    /**
-     * 隐藏loading
-     */
-    private static final int HANDLER_HIDE_LOADING = 1005;
-    /**
-     * 显示loading
-     */
-    private static final int HANDLER_SHOW_LOADING = 1006;
-    /**
-     * 默认消失的时间
-     */
-    private static final int DEFAULT_TIME_OUT = 3500;
     /**
      * 多长时间后重新设置为sensor控制
      */
@@ -100,6 +82,13 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
      */
     private View mLoadingContent;
 
+
+    private View mSlideContent;
+    private ImageView mSlideIcon;
+    private TextView mSlideTargetTime;
+    private TextView mSlideTotleTime;
+
+
     private ViewGroup mPortraitVideoRootView;
     private ViewGroup mLandVideoRootView;
     private MediaPlayerControl mPlayer;
@@ -111,13 +100,6 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
-                case HANDLER_HIDE_NORMAL_FEATURES:
-                    mNormalFeaturesContent.setVisibility(GONE);
-                    break;
-                case HANDLER_SHOW_NORMAL_FEATURES:
-                    mNormalFeaturesContent.setVisibility(VISIBLE);
-                    setPlayStatus();
-                    break;
                 case HANDLER_UPDATE_PROGRESS:
                     int pos = setProgress();
                     Log.i(TAG, "isPlaying = " + mPlayer.isPlaying());
@@ -178,12 +160,79 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         // Loading 区域
         mLoadingContent = findViewById(R.id.loading_content);
 
+        mSlideContent = findViewById(R.id.slide_content);
+        mSlideIcon = (ImageView) findViewById(R.id.slide_icon);
+        mSlideTargetTime = (TextView) findViewById(R.id.slide_time_target);
+        mSlideTotleTime = (TextView) findViewById(R.id.slide_time_totle);
     }
 
+    @Override
+    public void hide() {
+        Log.i(TAG, "timeout hide");
+        mNormalFeaturesContent.setVisibility(GONE);
+        mHandler.removeMessages(HANDLER_UPDATE_PROGRESS);
+    }
+
+    @Override
+    public void show() {
+        Log.i(TAG, "show");
+        /**
+         * 1. 先进性设置播放状态
+         * 2. 更新进度条
+         * 3. 显示
+         */
+        syncPlayStatus();
+        mHandler.sendEmptyMessage(HANDLER_UPDATE_PROGRESS);
+        mNormalFeaturesContent.setVisibility(VISIBLE);
+    }
 
     @Override
     public boolean isShowing() {
         return mNormalFeaturesContent.getVisibility() == View.VISIBLE;
+    }
+
+    @Override
+    public void showLoading() {
+        if (mLoadingContent.getVisibility() == VISIBLE) {
+            return;
+        }
+        mLoadingContent.setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void hideLoading() {
+        mLoadingContent.setVisibility(GONE);
+    }
+
+    @Override
+    public void showSlideView(long position, float distance) {
+        mSlideContent.setVisibility(VISIBLE);
+        int duration = mPlayer.getDuration();
+
+        if (distance > 0) {
+            mSlideIcon.setImageResource(R.drawable.ic_forward);
+        } else {
+            mSlideIcon.setImageResource(R.drawable.ic_backward);
+        }
+
+
+        mSlideTargetTime.setText(VideoUtils.generatePlayTime(position));
+        mSlideTotleTime.setText(VideoUtils.generatePlayTime(duration));
+    }
+
+    @Override
+    public void hideSlideView() {
+        mSlideContent.setVisibility(GONE);
+    }
+
+    @Override
+    public void effectiveSlide(long position) {
+        mPlayer.seekTo((int) (position));
+    }
+
+    @Override
+    public FrameLayout getAdView() {
+        return null;
     }
 
     @Override
@@ -205,16 +254,11 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mVideoView = (IjkVideoView) view;
         mVideoView.addView(this);
         mVideoView.bringChildToFront(this);
-        mVideoView.setOnInfoListener(mInfoListener);
         mVideoView.setOnCompletionListener(mCompletionListener);
-        mVideoView.setOnPreparedListener(mPreparedListener);
 
         mPortraitVideoRootView = (ViewGroup) mVideoView.getParent();
 
-        mLoadingContent.setVisibility(VISIBLE);
-
         mHandler.sendEmptyMessage(HANDLER_SCREEN_SENSOR);
-        mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
     }
 
     /**
@@ -233,60 +277,11 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mTitle.setText(title);
     }
 
-    @Override
-    public void hide() {
-        Log.i(TAG, "timeout hide");
-        mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
-        mHandler.removeMessages(HANDLER_UPDATE_PROGRESS);
-    }
-
-    @Override
-    public void show() {
-        Log.i(TAG, "show");
-        show(DEFAULT_TIME_OUT);
-    }
-
-    @Override
-    public void show(int timeout) {
-        Log.i(TAG, "timeout show = " + timeout);
-
-        mHandler.sendEmptyMessage(HANDLER_SHOW_NORMAL_FEATURES);
-        mHandler.sendEmptyMessage(HANDLER_UPDATE_PROGRESS);
-
-        mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
-        mHandler.sendEmptyMessageDelayed(HANDLER_HIDE_NORMAL_FEATURES, timeout);
-
-
-    }
-
-
-    @Override
-    public void showOnce(View view) {
-        //TODO
-    }
 
     public void setPlayNextVisibility(int visiablilty) {
         mPlayNextView.setVisibility(visiablilty);
     }
 
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                Log.i(TAG, "dispatchTouchEvent ACTION_DOWN");
-                break;
-            case MotionEvent.ACTION_UP:
-                Log.i(TAG, "dispatchTouchEvent ACTION_UP");
-                break;
-        }
-        return super.dispatchTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        // 不处理任何事件， 都交给父类处理
-        return false;
-    }
 
     @Override
     public void onClick(View v) {
@@ -389,7 +384,10 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         }
     }
 
-    private void setPlayStatus() {
+    /**
+     * 同步播放状态
+     */
+    private void syncPlayStatus() {
         if (mPlayer.isPlaying()) {
             mStartOrPauseView.setImageResource(R.drawable.ic_play_pause);
         } else {
@@ -397,36 +395,30 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         }
     }
 
+    /**
+     * 设置进度
+     */
     private int setProgress() {
         if (mPlayer == null || mDragging) {
             return 0;
         }
         int position = mPlayer.getCurrentPosition();
         int duration = mPlayer.getDuration();
-        if (mProgress != null) {
-            if (duration > 0) {
-                // use long to avoid overflow
-                long pos = 1000L * position / duration;
-                mProgress.setProgress((int) pos);
-            }
-            int percent = mPlayer.getBufferPercentage();
-            mProgress.setSecondaryProgress(percent * 10);
+        if (mNormalFeaturesContent == null) {
+            return position;
         }
 
-        if (mEndTime != null) {
-            mEndTime.setText(VideoUtils.generatePlayTime(duration));
+        if (duration > 0) {
+            // use long to avoid overflow
+            long pos = 1000L * position / duration;
+            mProgress.setProgress((int) pos);
         }
-        if (mCurrentTime != null) {
-            mCurrentTime.setText(VideoUtils.generatePlayTime(position));
-        }
+        int percent = mPlayer.getBufferPercentage();
+        mProgress.setSecondaryProgress(percent * 10);
+
+        mEndTime.setText(VideoUtils.generatePlayTime(duration));
+        mCurrentTime.setText(VideoUtils.generatePlayTime(position));
         return position;
-    }
-
-    /**
-     * 普通功能区是否可见
-     */
-    private boolean isNormalFeaturesVisible() {
-        return mNormalFeaturesContent.getVisibility() == VISIBLE;
     }
 
     // There are two scenarios that can trigger the seekbar listener to trigger:
@@ -451,6 +443,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             // we will post one of these messages to the queue again and
             // this ensures that there will be exactly one message queued up.
             mHandler.removeMessages(HANDLER_UPDATE_PROGRESS);
+            mVideoView.removeHideAction();
         }
 
         @Override
@@ -464,7 +457,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
             long duration = mPlayer.getDuration();
             long newposition = (duration * progress) / 1000L;
-            //mPlayer.seekTo((int) newposition);
+
             if (mCurrentTime != null) {
                 mCurrentTime.setText(VideoUtils.generatePlayTime(newposition));
             }
@@ -478,29 +471,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             long newposition = (duration * bar.getProgress()) / 1000L;
             mPlayer.seekTo((int) newposition);
 
-            show(DEFAULT_TIME_OUT);
-        }
-    };
-
-    private IMediaPlayer.OnInfoListener mInfoListener = new IMediaPlayer.OnInfoListener() {
-        @Override
-        public boolean onInfo(IMediaPlayer mp, int what, int extra) {
-            Log.i(TAG, "on info changed ");
-            boolean isVisiable = mNormalFeaturesContent.getVisibility() == VISIBLE;
-            if (isVisiable) {
-                setPlayStatus();
-                mHandler.sendEmptyMessage(HANDLER_UPDATE_PROGRESS);
-            }
-
-            switch (what) {
-                case IMediaPlayer.MEDIA_INFO_BUFFERING_START:
-                    mLoadingContent.setVisibility(VISIBLE);
-                    break;
-                case IMediaPlayer.MEDIA_INFO_BUFFERING_END:
-                    mLoadingContent.setVisibility(GONE);
-                    break;
-            }
-            return false;
+            mVideoView.setShowAction();
         }
     };
 
@@ -513,13 +484,6 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         }
     };
 
-    private IMediaPlayer.OnPreparedListener mPreparedListener = new IMediaPlayer.OnPreparedListener() {
-        @Override
-        public void onPrepared(IMediaPlayer mp) {
-            mLoadingContent.setVisibility(GONE);
-        }
-
-    };
 
     public void setCallBack(CallBack callBack) {
         mCallBack = callBack;

@@ -129,9 +129,10 @@ public class VideoUtils {
         int minutes = (totalSeconds / 60) % 60;
         int hours = totalSeconds / 3600;
 
-        return hours > 0 ? String.format(Locale.CHINA, "%02d:%02d:%02d", hours,
-                minutes, seconds) : String.format(Locale.CHINA, "%02d:%02d",
-                minutes, seconds);
+        return hours > 0 ?
+                String.format(Locale.CHINA, "%02d:%02d:%02d", hours, minutes, seconds)
+                :
+                String.format(Locale.CHINA, "%02d:%02d", minutes, seconds);
     }
 
     /**
@@ -178,72 +179,6 @@ public class VideoUtils {
             }
         }
         return LgTime;
-    }
-
-    public static boolean isEmpty(String str) {
-        return null == str || "".equals(str)
-                || "NULL".equals(str.toUpperCase(Locale.CHINA));
-    }
-
-    public static boolean isOnlyMobileType(Context context) {
-        State wifiState = null;
-        State mobileState = null;
-        ConnectivityManager cm = (ConnectivityManager) context
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = null;
-        try {
-            networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (networkInfo != null) {
-            wifiState = networkInfo.getState();
-        }
-        try {
-            networkInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (networkInfo != null) {
-            mobileState = networkInfo.getState();
-        }
-        if (wifiState != null && mobileState != null
-                && State.CONNECTED != wifiState
-                && State.CONNECTED == mobileState) {
-            // 手机网络连接成功
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * md5
-     *
-     * @param str
-     * @return
-     */
-    public static String md5(String str) {
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-            messageDigest.reset();
-            messageDigest.update(str.getBytes("UTF-8"));
-            byte[] byteArray = messageDigest.digest();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < byteArray.length; i++) {
-                if (Integer.toHexString(0xFF & byteArray[i]).length() == 1) {
-                    sb.append("0").append(
-                            Integer.toHexString(0xFF & byteArray[i]));
-                } else {
-                    sb.append(Integer.toHexString(0xFF & byteArray[i]));
-                }
-            }
-
-            return sb.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return str;
     }
 
     public static String getOSVersionInfo() {
