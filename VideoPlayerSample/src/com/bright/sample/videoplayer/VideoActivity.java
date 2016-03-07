@@ -16,15 +16,15 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.videoplayer.sample;
+package com.bright.sample.videoplayer;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.bright.ijkplayer.utils.ScreenOrientationUtils;
-import com.bright.ijkplayer.widget.MediaController;
-import com.bright.ijkplayer.widget.media.IjkVideoView;
+import com.bright.videoplayer.utils.ScreenOrientationUtils;
+import com.bright.videoplayer.widget.MediaController;
+import com.bright.videoplayer.widget.media.VideoView;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
@@ -32,7 +32,7 @@ public class VideoActivity extends AppCompatActivity {
     private static final String TAG = VideoActivity.class.getSimpleName();
 
     private MediaController mMediaController;
-    private IjkVideoView mVideoView;
+    private VideoView mVideoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class VideoActivity extends AppCompatActivity {
         mMediaController = new MediaController(this);
         mMediaController.setTitle("变形金刚2");
 
-        mVideoView = (IjkVideoView) findViewById(R.id.video_view);
+        mVideoView = (VideoView) findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
         // prefer mVideoPath
         //mVideoView.setVideoPath("http://mss.pinet.co/index.php/api/retrieve/3da4edce-b445-42c8-88a7-3b8a1997d61c/playlist.m3u8");

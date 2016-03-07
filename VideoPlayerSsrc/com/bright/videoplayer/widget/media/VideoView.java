@@ -16,7 +16,7 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.ijkplayer.widget.media;
+package com.bright.videoplayer.widget.media;
 
 import android.app.Activity;
 import android.content.Context;
@@ -37,16 +37,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.MediaController;
 
-import com.bright.ijkplayer.R;
-import com.bright.ijkplayer.settings.Settings;
-import com.bright.ijkplayer.utils.VideoUtils;
+import com.bright.videoplayer.R;
+import com.bright.videoplayer.settings.Settings;
 
 import java.util.Map;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
-public class IjkVideoView extends FrameLayout implements MediaController.MediaPlayerControl {
+public class VideoView extends FrameLayout implements MediaController.MediaPlayerControl {
     private static final String TAG = "IjkVideoView";
     /**
      * 滑动整个屏幕 进度最多为5分钟
@@ -144,15 +143,15 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     };
 
 
-    public IjkVideoView(Context context) {
+    public VideoView(Context context) {
         this(context, null);
     }
 
-    public IjkVideoView(Context context, AttributeSet attrs) {
+    public VideoView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public IjkVideoView(Context context, AttributeSet attrs, int defStyle) {
+    public VideoView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mAppContext = context.getApplicationContext();
         initLibs();

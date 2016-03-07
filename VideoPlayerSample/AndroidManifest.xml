@@ -16,7 +16,7 @@
   @author: y.haiyang@qq.com
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bright.videoplayer.sample">
+    package="com.bright.sample.videoplayer">
 
     <application
         android:allowBackup="true"
@@ -27,7 +27,7 @@
 
 
         <activity
-            android:name=".VideoActivity"
+            android:name="com.bright.sample.videoplayer.VideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait"

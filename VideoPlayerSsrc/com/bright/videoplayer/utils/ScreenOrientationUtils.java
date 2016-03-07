@@ -17,7 +17,7 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.ijkplayer.utils;
+package com.bright.videoplayer.utils;
 
 import android.app.Activity;
 import android.content.Context;

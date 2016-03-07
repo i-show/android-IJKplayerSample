@@ -16,16 +16,13 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.ijkplayer.utils;
+package com.bright.videoplayer.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.NetworkInfo.State;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -34,7 +31,6 @@ import android.util.Log;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

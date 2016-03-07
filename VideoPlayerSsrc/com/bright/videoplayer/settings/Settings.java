@@ -16,7 +16,7 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.ijkplayer.settings;
+package com.bright.videoplayer.settings;
 
 public class Settings {
 

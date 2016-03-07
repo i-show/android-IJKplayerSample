@@ -16,13 +16,13 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.ijkplayer.widget.media;
+package com.bright.videoplayer.widget.media;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import com.bright.ijkplayer.R;
+import com.bright.videoplayer.R;
 
 import java.lang.ref.WeakReference;
 

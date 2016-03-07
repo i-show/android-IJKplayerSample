@@ -16,7 +16,7 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.ijkplayer.widget.media;
+package com.bright.videoplayer.widget.media;
 
 import android.graphics.SurfaceTexture;
 import android.support.annotation.NonNull;

@@ -16,17 +16,15 @@
  * @author: y.haiyang@qq.com
  */
 
-package com.bright.ijkplayer.widget;
+package com.bright.videoplayer.widget;
 
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.ViewUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -36,11 +34,11 @@ import android.widget.MediaController.MediaPlayerControl;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.bright.ijkplayer.R;
-import com.bright.ijkplayer.utils.ScreenOrientationUtils;
-import com.bright.ijkplayer.utils.VideoUtils;
-import com.bright.ijkplayer.widget.media.IMediaController;
-import com.bright.ijkplayer.widget.media.IjkVideoView;
+import com.bright.videoplayer.R;
+import com.bright.videoplayer.utils.ScreenOrientationUtils;
+import com.bright.videoplayer.utils.VideoUtils;
+import com.bright.videoplayer.widget.media.IMediaController;
+import com.bright.videoplayer.widget.media.VideoView;
 
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 
@@ -62,7 +60,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     private static final int DEFAULT_DELAY_TIME_SET_SENSOR = 5000;
     private boolean mDragging;
 
-    private IjkVideoView mVideoView;
+    private VideoView mVideoView;
     /**
      * 普通功能的包裹区域
      */
@@ -251,7 +249,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             ((ViewGroup) parent).removeView(this);
         }
 
-        mVideoView = (IjkVideoView) view;
+        mVideoView = (VideoView) view;
         mVideoView.addView(this);
         mVideoView.bringChildToFront(this);
         mVideoView.setOnCompletionListener(mCompletionListener);
