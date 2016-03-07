@@ -1,12 +1,12 @@
 /**
  * Copyright (C) 2016 The yuhaiyang Android Source Project
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -79,13 +79,17 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
      * 加载功能的包裹区域
      */
     private View mLoadingContent;
-
-
+    /**
+     * 滑动功能区
+     */
     private View mSlideContent;
     private ImageView mSlideIcon;
     private TextView mSlideTargetTime;
     private TextView mSlideTotleTime;
-
+    /**
+     * 广告区
+     */
+    private FrameLayout mADContent;
 
     private ViewGroup mPortraitVideoRootView;
     private ViewGroup mLandVideoRootView;
@@ -162,6 +166,8 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mSlideIcon = (ImageView) findViewById(R.id.slide_icon);
         mSlideTargetTime = (TextView) findViewById(R.id.slide_time_target);
         mSlideTotleTime = (TextView) findViewById(R.id.slide_time_totle);
+
+        mADContent = (FrameLayout) findViewById(R.id.ad_content);
     }
 
     @Override
@@ -230,7 +236,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
     @Override
     public FrameLayout getAdView() {
-        return null;
+        return mADContent;
     }
 
     @Override
