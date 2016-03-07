@@ -42,14 +42,12 @@ public class VideoActivity extends AppCompatActivity {
         // init UI
         mMediaController = new MediaController(this);
         mMediaController.setTitle("变形金刚2");
-        // init player
-        IjkMediaPlayer.loadLibrariesOnce(null);
-        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
+
         mVideoView = (IjkVideoView) findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
         // prefer mVideoPath
-        mVideoView.setVideoPath("http://mss.pinet.co/index.php/api/retrieve/3da4edce-b445-42c8-88a7-3b8a1997d61c/playlist.m3u8");
-        //mVideoView.setVideoPath("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear4/prog_index.m3u8");
+        //mVideoView.setVideoPath("http://mss.pinet.co/index.php/api/retrieve/3da4edce-b445-42c8-88a7-3b8a1997d61c/playlist.m3u8");
+        mVideoView.setVideoPath("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear4/prog_index.m3u8");
 
         mVideoView.start();
 
@@ -88,7 +86,6 @@ public class VideoActivity extends AppCompatActivity {
             mMediaController.changeLand(true);
         } else {
             mMediaController.changePortrait(true);
-
         }
     }
 }

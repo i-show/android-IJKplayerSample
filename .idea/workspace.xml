@@ -6,17 +6,16 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="nian" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76608bb8-8c5e-4869-b09b-e8b87273af7c" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/TextureRenderView.java" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/MediaPlayerCompat.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/utils/VideoUtils.java" afterPath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/utils/VideoUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/utils/ScreenOrientationUtils.java" afterPath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/utils/ScreenOrientationUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IjkVideoView.java" afterPath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IjkVideoView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/utils/VideoUtils.java" afterPath="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/utils/VideoUtils.java" />
     </list>
     <ignored path="IJKplayerSample.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,57 +59,94 @@
       <file leaf-file-name="MediaController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/MediaController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.033334">
-              <caret line="229" column="22" selection-start-line="229" selection-start-column="16" selection-end-line="229" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="202" column="29" selection-start-line="202" selection-start-column="29" selection-end-line="202" selection-end-column="29" />
               <folding>
                 <element signature="e#6421#6422#0" expanded="true" />
                 <element signature="e#6472#6473#0" expanded="true" />
-                <element signature="e#7029#7030#0" expanded="true" />
-                <element signature="e#7078#7079#0" expanded="true" />
                 <element signature="e#7141#7142#0" expanded="true" />
                 <element signature="e#7189#7190#0" expanded="true" />
-                <element signature="e#7241#7242#0" expanded="true" />
-                <element signature="e#7268#7269#0" expanded="true" />
-                <element signature="e#8366#8367#0" expanded="true" />
-                <element signature="e#8422#8423#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="media_controller_normal.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_normal.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.88709676">
+              <caret line="85" column="29" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+              <folding>
+                <element signature="e#1056#1070#0" expanded="true" />
+                <element signature="e#1256#1270#0" expanded="true" />
+                <element signature="e#1744#1760#0" expanded="true" />
+                <element signature="e#1917#1931#0" expanded="true" />
+                <element signature="e#3121#3135#0" expanded="true" />
+                <element signature="e#3256#3272#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="media_controller_slide.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_slide.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.1639345">
+              <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="normal_panel_bg.9.png" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VideoPlayer/res/drawable-xhdpi/normal_panel_bg.9.png">
+          <provider selected="true" editor-type-id="ninepatcheditor">
+            <state />
+          </provider>
+          <provider editor-type-id="images">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="IjkVideoView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IjkVideoView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.3">
-              <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
+            <state vertical-scroll-proportion="-11.0">
+              <caret line="157" column="19" selection-start-line="157" selection-start-column="19" selection-end-line="157" selection-end-column="19" />
               <folding>
                 <element signature="e#0#667#0" expanded="true" />
                 <element signature="imports" expanded="true" />
-                <element signature="e#10889#11699#0" expanded="true" />
-                <element signature="e#11698#11699#0" expanded="true" />
-                <element signature="e#11758#13692#0" expanded="true" />
-                <element signature="e#13691#13692#0" expanded="true" />
-                <element signature="e#13763#14246#0" expanded="true" />
-                <element signature="e#14245#14246#0" expanded="true" />
-                <element signature="e#14305#15401#0" expanded="true" />
-                <element signature="e#15400#15401#0" expanded="true" />
-                <element signature="e#15462#17553#0" expanded="true" />
-                <element signature="e#17552#17553#0" expanded="true" />
-                <element signature="e#17634#17814#0" expanded="true" />
-                <element signature="e#17813#17814#0" expanded="true" />
+                <element signature="e#4970#4971#0" expanded="true" />
+                <element signature="e#5009#5010#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/VideoPlayer/build.gradle">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.66729677">
-              <caret line="79" column="6" selection-start-line="79" selection-start-column="6" selection-end-line="79" selection-end-column="6" />
+            <state vertical-scroll-proportion="-1.6071428">
+              <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
               <folding>
                 <element signature="e#0#655#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VideoActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/VideoPlayerSample/src/com/bright/videoplayer/sample/VideoActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -623,6 +659,11 @@
                 <option name="name" value="prepareComAndroidSupportSupportV42311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.exoplayer:exoplayer:r1.5.2" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareComGoogleAndroidExoplayerExoplayerR152Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareDebugAndroidTestDependencies" />
               </ExternalTaskPojo>
@@ -646,6 +687,11 @@
                 <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-armv7a:0.4.5.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareTvDanmakuIjkMediaIjkplayerArmv7a0451Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-exo:0.4.5.1" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
+                <option name="name" value="prepareTvDanmakuIjkMediaIjkplayerExo0451Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-java:0.4.5.1" />
@@ -1287,6 +1333,11 @@
                 <option name="name" value="prepareComAndroidSupportSupportV42311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.exoplayer:exoplayer:r1.5.2" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayer" />
+                <option name="name" value="prepareComGoogleAndroidExoplayerExoplayerR152Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayer" />
                 <option name="name" value="prepareDebugAndroidTestDependencies" />
               </ExternalTaskPojo>
@@ -1310,6 +1361,11 @@
                 <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-armv7a:0.4.5.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayer" />
                 <option name="name" value="prepareTvDanmakuIjkMediaIjkplayerArmv7a0451Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-exo:0.4.5.1" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayer" />
+                <option name="name" value="prepareTvDanmakuIjkMediaIjkplayerExo0451Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-java:0.4.5.1" />
@@ -1875,6 +1931,11 @@
                 <option name="name" value="prepareComAndroidSupportSupportV42311Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Prepare com.google.android.exoplayer:exoplayer:r1.5.2" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayerSample" />
+                <option name="name" value="prepareComGoogleAndroidExoplayerExoplayerR152Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayerSample" />
                 <option name="name" value="prepareDebugAndroidTestDependencies" />
               </ExternalTaskPojo>
@@ -1903,6 +1964,11 @@
                 <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-armv7a:0.4.5.1" />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayerSample" />
                 <option name="name" value="prepareTvDanmakuIjkMediaIjkplayerArmv7a0451Library" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-exo:0.4.5.1" />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/VideoPlayerSample" />
+                <option name="name" value="prepareTvDanmakuIjkMediaIjkplayerExo0451Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Prepare tv.danmaku.ijk.media:ijkplayer-java:0.4.5.1" />
@@ -2076,7 +2142,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="5828053964981" />
+        <entry key="$PROJECT_DIR$" value="5828135822885" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -2262,9 +2328,11 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
                             <option value="D:/Environment/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/23.1.1/appcompat-v7-23.1.1.aar" />
                             <option value="D:/Environment/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.danmaku.ijk.media/ijkplayer-exo/0.4.5.1/8d646f1f71fa0e412697767e6690aafc80f4260c/ijkplayer-exo-0.4.5.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.danmaku.ijk.media/ijkplayer-java/0.4.5.1/7776242e2b4599930a4e737969a2e3561ddeecd0/ijkplayer-java-0.4.5.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.danmaku.ijk.media/ijkplayer-armv7a/0.4.5.1/48899f7201b6b2be48354ce9b69b359cdaf0095a/ijkplayer-armv7a-0.4.5.1.aar" />
                             <option value="D:/Environment/Android/sdk/extras/android/m2repository/com/android/support/support-v4/23.1.1/support-v4-23.1.1.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.2/b4aa9ac5f01412c243c87ebcc977aade120bb653/exoplayer-r1.5.2.aar" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/VideoPlayer" />
@@ -2357,9 +2425,11 @@
                             <option value="$APPLICATION_HOME_DIR$/gradle/m2repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar" />
                             <option value="D:/Environment/Android/sdk/extras/android/m2repository/com/android/support/appcompat-v7/23.1.1/appcompat-v7-23.1.1.aar" />
                             <option value="D:/Environment/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.danmaku.ijk.media/ijkplayer-exo/0.4.5.1/8d646f1f71fa0e412697767e6690aafc80f4260c/ijkplayer-exo-0.4.5.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.danmaku.ijk.media/ijkplayer-java/0.4.5.1/7776242e2b4599930a4e737969a2e3561ddeecd0/ijkplayer-java-0.4.5.1.aar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.danmaku.ijk.media/ijkplayer-armv7a/0.4.5.1/48899f7201b6b2be48354ce9b69b359cdaf0095a/ijkplayer-armv7a-0.4.5.1.aar" />
                             <option value="D:/Environment/Android/sdk/extras/android/m2repository/com/android/support/support-v4/23.1.1/support-v4-23.1.1.aar" />
+                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.exoplayer/exoplayer/r1.5.2/b4aa9ac5f01412c243c87ebcc977aade120bb653/exoplayer-r1.5.2.aar" />
                           </list>
                         </option>
                         <option name="path" value="$PROJECT_DIR$/VideoPlayerSample" />
@@ -2445,17 +2515,17 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/VideoPlayerSample/src/com/bright/videoplayer/sample/VideoActivity.java" />
-        <option value="$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_normal.xml" />
         <option value="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/settings/Settings.java" />
         <option value="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IRenderView.java" />
         <option value="$PROJECT_DIR$/gradle.properties" />
-        <option value="$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_slide.xml" />
         <option value="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IMediaController.java" />
         <option value="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/utils/VideoUtils.java" />
         <option value="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/MediaController.java" />
-        <option value="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IjkVideoView.java" />
         <option value="$PROJECT_DIR$/VideoPlayer/build.gradle" />
+        <option value="$PROJECT_DIR$/VideoPlayerSample/src/com/bright/videoplayer/sample/VideoActivity.java" />
+        <option value="$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IjkVideoView.java" />
+        <option value="$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_normal.xml" />
+        <option value="$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_slide.xml" />
       </list>
     </option>
   </component>
@@ -2672,11 +2742,73 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IJKplayerSample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IJKplayerSample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VideoPlayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IJKplayerSample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IJKplayerSample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VideoPlayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IJKplayerSample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IJKplayerSample" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="VideoPlayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drawable-xhdpi" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2983,6 +3115,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32223904" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38653556" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
@@ -2994,7 +3127,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -3013,66 +3145,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/MediaController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="478" column="6" selection-start-line="478" selection-start-column="6" selection-end-line="478" selection-end-column="6" />
-          <folding>
-            <element signature="e#6421#6422#0" expanded="true" />
-            <element signature="e#6472#6473#0" expanded="true" />
-            <element signature="e#7029#7030#0" expanded="true" />
-            <element signature="e#7078#7079#0" expanded="true" />
-            <element signature="e#7141#7142#0" expanded="true" />
-            <element signature="e#7189#7190#0" expanded="true" />
-            <element signature="e#7241#7242#0" expanded="true" />
-            <element signature="e#7268#7269#0" expanded="true" />
-            <element signature="e#8366#8367#0" expanded="true" />
-            <element signature="e#8422#8423#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IjkVideoView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="549" column="0" selection-start-line="549" selection-start-column="0" selection-end-line="549" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#667#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-            <element signature="e#10889#11699#0" expanded="true" />
-            <element signature="e#11698#11699#0" expanded="true" />
-            <element signature="e#11758#13692#0" expanded="true" />
-            <element signature="e#13691#13692#0" expanded="true" />
-            <element signature="e#13763#14246#0" expanded="true" />
-            <element signature="e#14245#14246#0" expanded="true" />
-            <element signature="e#14305#15401#0" expanded="true" />
-            <element signature="e#15400#15401#0" expanded="true" />
-            <element signature="e#15462#17553#0" expanded="true" />
-            <element signature="e#17552#17553#0" expanded="true" />
-            <element signature="e#17634#17814#0" expanded="true" />
-            <element signature="e#17813#17814#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/MeasureHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#656#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gradle.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3128,14 +3200,8 @@
           <folding>
             <element signature="e#6421#6422#0" expanded="true" />
             <element signature="e#6472#6473#0" expanded="true" />
-            <element signature="e#7029#7030#0" expanded="true" />
-            <element signature="e#7078#7079#0" expanded="true" />
             <element signature="e#7141#7142#0" expanded="true" />
             <element signature="e#7189#7190#0" expanded="true" />
-            <element signature="e#7241#7242#0" expanded="true" />
-            <element signature="e#7268#7269#0" expanded="true" />
-            <element signature="e#8366#8367#0" expanded="true" />
-            <element signature="e#8422#8423#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3147,18 +3213,8 @@
           <folding>
             <element signature="e#0#667#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#10889#11699#0" expanded="true" />
-            <element signature="e#11698#11699#0" expanded="true" />
-            <element signature="e#11758#13692#0" expanded="true" />
-            <element signature="e#13691#13692#0" expanded="true" />
-            <element signature="e#13763#14246#0" expanded="true" />
-            <element signature="e#14245#14246#0" expanded="true" />
-            <element signature="e#14305#15401#0" expanded="true" />
-            <element signature="e#15400#15401#0" expanded="true" />
-            <element signature="e#15462#17553#0" expanded="true" />
-            <element signature="e#17552#17553#0" expanded="true" />
-            <element signature="e#17634#17814#0" expanded="true" />
-            <element signature="e#17813#17814#0" expanded="true" />
+            <element signature="e#4970#4971#0" expanded="true" />
+            <element signature="e#5009#5010#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3177,7 +3233,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-          <folding />
+          <folding>
+            <element signature="e#0#655#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3236,14 +3294,8 @@
           <folding>
             <element signature="e#6421#6422#0" expanded="true" />
             <element signature="e#6472#6473#0" expanded="true" />
-            <element signature="e#7029#7030#0" expanded="true" />
-            <element signature="e#7078#7079#0" expanded="true" />
             <element signature="e#7141#7142#0" expanded="true" />
             <element signature="e#7189#7190#0" expanded="true" />
-            <element signature="e#7241#7242#0" expanded="true" />
-            <element signature="e#7268#7269#0" expanded="true" />
-            <element signature="e#8366#8367#0" expanded="true" />
-            <element signature="e#8422#8423#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3252,10 +3304,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="66" selection-start-line="47" selection-start-column="66" selection-end-line="47" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#667#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3266,18 +3315,8 @@
           <folding>
             <element signature="e#0#667#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#10889#11699#0" expanded="true" />
-            <element signature="e#11698#11699#0" expanded="true" />
-            <element signature="e#11758#13692#0" expanded="true" />
-            <element signature="e#13691#13692#0" expanded="true" />
-            <element signature="e#13763#14246#0" expanded="true" />
-            <element signature="e#14245#14246#0" expanded="true" />
-            <element signature="e#14305#15401#0" expanded="true" />
-            <element signature="e#15400#15401#0" expanded="true" />
-            <element signature="e#15462#17553#0" expanded="true" />
-            <element signature="e#17552#17553#0" expanded="true" />
-            <element signature="e#17634#17814#0" expanded="true" />
-            <element signature="e#17813#17814#0" expanded="true" />
+            <element signature="e#4970#4971#0" expanded="true" />
+            <element signature="e#5009#5010#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3286,7 +3325,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-          <folding />
+          <folding>
+            <element signature="e#0#655#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3297,46 +3338,37 @@
           <folding>
             <element signature="e#6421#6422#0" expanded="true" />
             <element signature="e#6472#6473#0" expanded="true" />
-            <element signature="e#7029#7030#0" expanded="true" />
-            <element signature="e#7078#7079#0" expanded="true" />
             <element signature="e#7141#7142#0" expanded="true" />
             <element signature="e#7189#7190#0" expanded="true" />
-            <element signature="e#7241#7242#0" expanded="true" />
-            <element signature="e#7268#7269#0" expanded="true" />
-            <element signature="e#8366#8367#0" expanded="true" />
-            <element signature="e#8422#8423#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_loading.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="36" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="36" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_normal.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_normal.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="35" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="35" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VideoPlayerSample/src/com/bright/videoplayer/sample/VideoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="66" selection-start-line="47" selection-start-column="66" selection-end-line="47" selection-end-column="66" />
-          <folding>
-            <element signature="e#0#667#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3344,7 +3376,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="68" column="14" selection-start-line="68" selection-start-column="14" selection-end-line="68" selection-end-column="14" />
-          <folding />
+          <folding>
+            <element signature="e#0#655#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3355,40 +3389,20 @@
           <folding>
             <element signature="e#0#667#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#10889#11699#0" expanded="true" />
-            <element signature="e#11698#11699#0" expanded="true" />
-            <element signature="e#11758#13692#0" expanded="true" />
-            <element signature="e#13691#13692#0" expanded="true" />
-            <element signature="e#13763#14246#0" expanded="true" />
-            <element signature="e#14245#14246#0" expanded="true" />
-            <element signature="e#14305#15401#0" expanded="true" />
-            <element signature="e#15400#15401#0" expanded="true" />
-            <element signature="e#15462#17553#0" expanded="true" />
-            <element signature="e#17552#17553#0" expanded="true" />
-            <element signature="e#17634#17814#0" expanded="true" />
-            <element signature="e#17813#17814#0" expanded="true" />
+            <element signature="e#4970#4971#0" expanded="true" />
+            <element signature="e#5009#5010#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_loading.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="22" column="36" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="36" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_normal.xml">
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.377049">
-          <caret line="64" column="36" selection-start-line="64" selection-start-column="36" selection-end-line="64" selection-end-column="36" />
-        </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/tv.danmaku.ijk.media/ijkplayer-java/0.4.4.1/238574705e06d798a4a6bb1e82f8341ff09df846/ijkplayer-java-0.4.4.1-sources.jar!/tv/danmaku/ijk/media/player/IjkMediaPlayer.java">
@@ -3503,35 +3517,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayerSample/src/com/bright/videoplayer/sample/VideoActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#667#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_slide.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4590163">
-          <caret line="52" column="50" selection-start-line="52" selection-start-column="33" selection-end-line="52" selection-end-column="50" />
-          <folding>
-            <element signature="e#1206#1220#0" expanded="true" />
-            <element signature="e#1634#1647#0" expanded="true" />
-            <element signature="e#1964#1980#0" expanded="true" />
-            <element signature="e#2206#2219#0" expanded="true" />
-            <element signature="e#2263#2276#0" expanded="true" />
-            <element signature="e#2639#2655#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/VideoPlayerSample/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.7096774">
@@ -3552,7 +3537,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33213645">
           <caret line="96" column="9" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3590,56 +3574,101 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/MediaController.java">
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/build/intermediates/exploded-aar/com.google.android.exoplayer/exoplayer/r1.5.2/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.033334">
-          <caret line="229" column="22" selection-start-line="229" selection-start-column="16" selection-end-line="229" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.43829787">
+          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/build/generated/source/r/androidTest/debug/tv/danmaku/ijk/media/exo/R.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.043912176">
+          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.6071428">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
           <folding>
-            <element signature="e#6421#6422#0" expanded="true" />
-            <element signature="e#6472#6473#0" expanded="true" />
-            <element signature="e#7029#7030#0" expanded="true" />
-            <element signature="e#7078#7079#0" expanded="true" />
-            <element signature="e#7141#7142#0" expanded="true" />
-            <element signature="e#7189#7190#0" expanded="true" />
-            <element signature="e#7241#7242#0" expanded="true" />
-            <element signature="e#7268#7269#0" expanded="true" />
-            <element signature="e#8366#8367#0" expanded="true" />
-            <element signature="e#8422#8423#0" expanded="true" />
+            <element signature="e#0#655#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/media/IjkVideoView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.3">
-          <caret line="83" column="12" selection-start-line="83" selection-start-column="12" selection-end-line="83" selection-end-column="12" />
+        <state vertical-scroll-proportion="-11.0">
+          <caret line="157" column="19" selection-start-line="157" selection-start-column="19" selection-end-line="157" selection-end-column="19" />
           <folding>
             <element signature="e#0#667#0" expanded="true" />
             <element signature="imports" expanded="true" />
-            <element signature="e#10889#11699#0" expanded="true" />
-            <element signature="e#11698#11699#0" expanded="true" />
-            <element signature="e#11758#13692#0" expanded="true" />
-            <element signature="e#13691#13692#0" expanded="true" />
-            <element signature="e#13763#14246#0" expanded="true" />
-            <element signature="e#14245#14246#0" expanded="true" />
-            <element signature="e#14305#15401#0" expanded="true" />
-            <element signature="e#15400#15401#0" expanded="true" />
-            <element signature="e#15462#17553#0" expanded="true" />
-            <element signature="e#17552#17553#0" expanded="true" />
-            <element signature="e#17634#17814#0" expanded="true" />
-            <element signature="e#17813#17814#0" expanded="true" />
+            <element signature="e#4970#4971#0" expanded="true" />
+            <element signature="e#5009#5010#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/VideoPlayer/build.gradle">
+    <entry file="file://$PROJECT_DIR$/VideoPlayerSample/src/com/bright/videoplayer/sample/VideoActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66729677">
-          <caret line="79" column="6" selection-start-line="79" selection-start-column="6" selection-end-line="79" selection-end-column="6" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="44" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/res/drawable-xhdpi/normal_panel_bg.9.png">
+      <provider selected="true" editor-type-id="ninepatcheditor">
+        <state />
+      </provider>
+      <provider editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_slide.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.1639345">
+          <caret line="33" column="31" selection-start-line="33" selection-start-column="31" selection-end-line="33" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/src/com/bright/ijkplayer/widget/MediaController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="202" column="29" selection-start-line="202" selection-start-column="29" selection-end-line="202" selection-end-column="29" />
           <folding>
-            <element signature="e#0#655#0" expanded="true" />
+            <element signature="e#6421#6422#0" expanded="true" />
+            <element signature="e#6472#6473#0" expanded="true" />
+            <element signature="e#7141#7142#0" expanded="true" />
+            <element signature="e#7189#7190#0" expanded="true" />
           </folding>
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VideoPlayer/res/layout/media_controller_normal.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.88709676">
+          <caret line="85" column="29" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
+          <folding>
+            <element signature="e#1056#1070#0" expanded="true" />
+            <element signature="e#1256#1270#0" expanded="true" />
+            <element signature="e#1744#1760#0" expanded="true" />
+            <element signature="e#1917#1931#0" expanded="true" />
+            <element signature="e#3121#3135#0" expanded="true" />
+            <element signature="e#3256#3272#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>

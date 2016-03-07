@@ -155,8 +155,15 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
     public IjkVideoView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mAppContext = context.getApplicationContext();
+        initLibs();
         initTools();
         initVideoView();
+    }
+
+    public void initLibs() {
+        // init player
+        IjkMediaPlayer.loadLibrariesOnce(null);
+        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
     }
 
     private void initTools() {

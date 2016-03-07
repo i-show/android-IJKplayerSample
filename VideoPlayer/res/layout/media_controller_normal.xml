@@ -26,13 +26,13 @@
     <LinearLayout
         android:id="@+id/topPanel"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55"
-        android:background="@drawable/top_panel_bg"
+        android:layout_height="@dimen/dp_45"
+        android:background="@drawable/normal_panel_bg"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/back"
-            android:layout_width="55dp"
+            android:layout_width="@dimen/dp_45"
             android:layout_height="match_parent"
             android:background="?android:selectableItemBackground"
             android:scaleType="center"
@@ -44,7 +44,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/G_title" />
 
     </LinearLayout>
 
@@ -52,9 +52,9 @@
     <LinearLayout
         android:id="@+id/bottomPanel"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_55"
+        android:layout_height="@dimen/dp_45"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottom_panel_bg"
+        android:background="@drawable/normal_panel_bg"
         android:orientation="horizontal">
 
         <ImageView
