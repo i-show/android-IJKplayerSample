@@ -31,6 +31,7 @@ import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.MediaController.MediaPlayerControl;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -89,7 +90,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     /**
      * 广告区
      */
-    private FrameLayout mADContent;
+    private RelativeLayout mADContent;
 
     private ViewGroup mPortraitVideoRootView;
     private ViewGroup mLandVideoRootView;
@@ -167,7 +168,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mSlideTargetTime = (TextView) findViewById(R.id.slide_time_target);
         mSlideTotleTime = (TextView) findViewById(R.id.slide_time_totle);
 
-        mADContent = (FrameLayout) findViewById(R.id.ad_content);
+        mADContent = (RelativeLayout) findViewById(R.id.ad_content);
     }
 
     @Override
@@ -235,7 +236,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
     }
 
     @Override
-    public FrameLayout getAdView() {
+    public RelativeLayout getAdView() {
         return mADContent;
     }
 

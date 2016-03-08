@@ -21,6 +21,7 @@ package com.bright.videoplayer.widget.media;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.MediaController;
+import android.widget.RelativeLayout;
 
 public interface IMediaController {
     /**
@@ -66,7 +67,7 @@ public interface IMediaController {
     /**
      * 获取广告View
      */
-    FrameLayout getAdView();
+    RelativeLayout getAdView();
 
     void setAnchorView(View view);
 

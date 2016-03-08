@@ -19,10 +19,10 @@
 
 
 <!-- 广告显示 的显示  -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ad_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-</FrameLayout>
+</RelativeLayout>
