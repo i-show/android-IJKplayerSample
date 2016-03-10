@@ -37,6 +37,7 @@ public class VideoPauseListener implements InterstitialAdListener {
     @Override
     public void onAdDismissed() {
         Log.i(TAG, "onAdDismissed: ");
+        mVideoView.setShowAction();
         mBaiduAd.loadAdForVideoApp(mVideoView.getWidth(), mVideoView.getHeight());
     }
 

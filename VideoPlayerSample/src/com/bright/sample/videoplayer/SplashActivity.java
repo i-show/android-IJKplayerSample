@@ -23,7 +23,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         //BaiduAdManager.getInstance(this);
         RelativeLayout adContent = (RelativeLayout) this.findViewById(R.id.ad);
-        new SplashAd(this, adContent, mSplashAdListener, "2058622", true);
+        new SplashAd(this, adContent, mSplashAdListener, "2431064", true);
     }
 
     /**

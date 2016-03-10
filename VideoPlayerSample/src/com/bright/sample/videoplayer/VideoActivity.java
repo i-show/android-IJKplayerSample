@@ -38,7 +38,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class VideoActivity extends AppCompatActivity {
     private static final String TAG = "VideoActivity";
-    private static final String BAIDU_ID = "2058626";
+    private static final String BAIDU_ID = "2431069";
     private MediaController mMediaController;
     private VideoView mVideoView;
     private InterstitialAd mBaiduBeforeAd;
