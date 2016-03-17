@@ -21,6 +21,7 @@ package com.bright.videoplayer.widget.media;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -154,6 +155,7 @@ public class VideoView extends FrameLayout implements MediaController.MediaPlaye
     public VideoView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         mAppContext = context.getApplicationContext();
+        setBackgroundColor(Color.BLACK);
         initLibs();
         initTools();
         initVideoView();
