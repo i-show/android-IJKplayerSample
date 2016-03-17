@@ -9,7 +9,7 @@ public class Configure {
      */
     public static final boolean SHOW_BAIDU_AD = true;
     /**
-     * 百度Demo中的ID:2058622，非个人ID:2431064
+     * 百度Demo中的ID:2058622，个人ID:2431064
      */
     public static final String BAIDU_SPLASH_ID = "2058622";
 
