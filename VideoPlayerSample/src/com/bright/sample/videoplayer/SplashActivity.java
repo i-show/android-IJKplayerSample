@@ -6,10 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
-import com.baidu.mobads.BaiduManager;
 import com.baidu.mobads.SplashAd;
 import com.baidu.mobads.SplashAdListener;
-import com.bright.sample.videoplayer.manager.BaiduAdManager;
 
 /**
  * 实时开屏，广告实时请求并且立即展现

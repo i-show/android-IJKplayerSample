@@ -25,9 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.baidu.mobads.AdSize;
-import com.baidu.mobads.BaiduManager;
 import com.baidu.mobads.InterstitialAd;
-import com.baidu.mobads.InterstitialAdListener;
 import com.bright.sample.videoplayer.listener.VideoBeforeListener;
 import com.bright.sample.videoplayer.listener.VideoPauseListener;
 import com.bright.videoplayer.utils.ScreenOrientationUtils;
@@ -68,7 +66,7 @@ public class VideoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        
+
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
