@@ -19,8 +19,16 @@ public class SplashActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (!Configure.SHOW_BAIDU_AD) {
+            Intent intent = new Intent(SplashActivity.this, VideoActivity.class);
+            startActivity(intent);
+            SplashActivity.this.finish();
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_splash);
-        //BaiduAdManager.getInstance(this);
         RelativeLayout adContent = (RelativeLayout) this.findViewById(R.id.ad);
         new SplashAd(this, adContent, mSplashAdListener, Configure.BAIDU_SPLASH_ID, true);
     }

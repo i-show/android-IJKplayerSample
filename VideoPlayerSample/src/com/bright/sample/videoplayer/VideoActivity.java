@@ -66,11 +66,15 @@ public class VideoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        if (!Configure.SHOW_BAIDU_AD) {
+            Log.i(TAG, "onResume: Configure.SHOW_BAIDU_AD is false");
+            return;
+        }
 
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Log.i(TAG, "run: 33333");
+                Log.i(TAG, "run: postDelayed");
                 mBaiduBeforeAd.loadAdForVideoApp(mVideoView.getWidth(), mVideoView.getHeight());
                 mBaiduPauseAd.loadAdForVideoApp(mVideoView.getWidth(), mVideoView.getHeight());
             }
@@ -120,7 +124,7 @@ public class VideoActivity extends AppCompatActivity {
     private MediaController.CallBack mCallBack = new MediaController.CallBack() {
         @Override
         public void onPlay(boolean isPlaying) {
-            if (!isPlaying) {
+            if (!isPlaying && Configure.SHOW_BAIDU_AD) {
                 mBaiduPauseAd.showAdInParentForVideoApp(VideoActivity.this, mMediaController.getAdView());
             }
         }
@@ -137,6 +141,10 @@ public class VideoActivity extends AppCompatActivity {
     };
 
     private void createAd() {
+        if (!Configure.SHOW_BAIDU_AD) {
+            Log.i(TAG, "createAd: Configure.SHOW_BAIDU_AD is false");
+            return;
+        }
         mBaiduBeforeAd = new InterstitialAd(this, AdSize.InterstitialForVideoBeforePlay, Configure.BAIDU_VIDEO_ID);
         mBaiduBeforeAd.setListener(new VideoBeforeListener(this, mMediaController, mBaiduBeforeAd, mVideoView));
 
