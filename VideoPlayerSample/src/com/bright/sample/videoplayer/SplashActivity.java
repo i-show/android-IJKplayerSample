@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.baidu.mobads.SplashAd;
 import com.baidu.mobads.SplashAdListener;
+import com.bright.sample.videoplayer.constant.Configure;
 
 /**
  * 实时开屏，广告实时请求并且立即展现
@@ -21,7 +22,7 @@ public class SplashActivity extends Activity {
         setContentView(R.layout.activity_splash);
         //BaiduAdManager.getInstance(this);
         RelativeLayout adContent = (RelativeLayout) this.findViewById(R.id.ad);
-        new SplashAd(this, adContent, mSplashAdListener, "2431064", true);
+        new SplashAd(this, adContent, mSplashAdListener, Configure.BAIDU_SPLASH_ID, true);
     }
 
     /**

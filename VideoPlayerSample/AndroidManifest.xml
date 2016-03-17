@@ -76,10 +76,10 @@
         <activity
             android:name="com.baidu.mobads.AppActivity"
             android:configChanges="keyboard|keyboardHidden|orientation" />
-
+        <!--百度ssp中的ID  个人ID：c3c64dd6 百度官方id:e866cfb0-->
         <meta-data
             android:name="BaiduMobAd_APP_ID"
-            android:value="c3c64dd6" />
+            android:value="e866cfb0" />
     </application>
 
 </manifest>

@@ -26,6 +26,7 @@ import android.util.Log;
 
 import com.baidu.mobads.AdSize;
 import com.baidu.mobads.InterstitialAd;
+import com.bright.sample.videoplayer.constant.Configure;
 import com.bright.sample.videoplayer.listener.VideoBeforeListener;
 import com.bright.sample.videoplayer.listener.VideoPauseListener;
 import com.bright.videoplayer.utils.ScreenOrientationUtils;
@@ -36,7 +37,6 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class VideoActivity extends AppCompatActivity {
     private static final String TAG = "VideoActivity";
-    private static final String BAIDU_ID = "2431069";
     private MediaController mMediaController;
     private VideoView mVideoView;
     private InterstitialAd mBaiduBeforeAd;
@@ -137,10 +137,10 @@ public class VideoActivity extends AppCompatActivity {
     };
 
     private void createAd() {
-        mBaiduBeforeAd = new InterstitialAd(this, AdSize.InterstitialForVideoBeforePlay, BAIDU_ID);
+        mBaiduBeforeAd = new InterstitialAd(this, AdSize.InterstitialForVideoBeforePlay, Configure.BAIDU_VIDEO_ID);
         mBaiduBeforeAd.setListener(new VideoBeforeListener(this, mMediaController, mBaiduBeforeAd, mVideoView));
 
-        mBaiduPauseAd = new InterstitialAd(this, AdSize.InterstitialForVideoPausePlay, BAIDU_ID);
+        mBaiduPauseAd = new InterstitialAd(this, AdSize.InterstitialForVideoPausePlay, Configure.BAIDU_VIDEO_ID);
         mBaiduPauseAd.setListener(new VideoPauseListener(mBaiduPauseAd, mVideoView));
     }
 }
