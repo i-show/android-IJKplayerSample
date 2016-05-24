@@ -18,6 +18,7 @@
 
 package com.bright.videoplayer.widget;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -56,6 +57,10 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
      */
     private static final int HANDLER_SCREEN_SENSOR = 1004;
     /**
+     * 隐藏
+     */
+    private static final int HANDLER_HIDE_NAVIGATION = 1005;
+    /**
      * 多长时间后重新设置为sensor控制
      */
     private static final int DEFAULT_DELAY_TIME_SET_SENSOR = 5000;
@@ -75,7 +80,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
     private ImageView mFullScreenView;
     private ImageView mStartOrPauseView;
-    private ImageView mPlayNextView;
+    private View mPlayNextView;
     /**
      * 加载功能的包裹区域
      */
@@ -116,6 +121,11 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
                     Log.i(TAG, "handleMessage: HANDLER_SCREEN_SENSOR");
                     ScreenOrientationUtils.setSensor(getContext());
                     break;
+                case HANDLER_HIDE_NAVIGATION:
+                    if (ScreenOrientationUtils.isLandscape(getContext())) {
+                        hideSystemBar();
+                    }
+                    break;
             }
         }
     };
@@ -148,7 +158,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mStartOrPauseView = (ImageView) findViewById(R.id.start_or_pause);
         mStartOrPauseView.setOnClickListener(this);
 
-        mPlayNextView = (ImageView) findViewById(R.id.play_next);
+        mPlayNextView = findViewById(R.id.play_next);
         mPlayNextView.setOnClickListener(this);
 
         mProgress = (SeekBar) findViewById(R.id.progress);
@@ -174,6 +184,9 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         Log.i(TAG, "timeout hide");
         mNormalFeaturesContent.setVisibility(GONE);
         mHandler.removeMessages(HANDLER_UPDATE_PROGRESS);
+
+        mHandler.removeMessages(HANDLER_HIDE_NAVIGATION);
+        mHandler.sendEmptyMessage(HANDLER_HIDE_NAVIGATION);
     }
 
     @Override
@@ -184,6 +197,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
          * 2. 更新进度条
          * 3. 显示
          */
+        showSystemBar();
         mHandler.sendEmptyMessage(HANDLER_UPDATE_PROGRESS);
         syncPlayStatus();
         mNormalFeaturesContent.setVisibility(VISIBLE);
@@ -217,7 +231,6 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         } else {
             mSlideIcon.setImageResource(R.drawable.ic_backward);
         }
-
 
         mSlideTargetTime.setText(VideoUtils.generatePlayTime(position));
         mSlideTotleTime.setText(VideoUtils.generatePlayTime(duration));
@@ -356,6 +369,8 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
                 ex.printStackTrace();
             }
         }
+        mHandler.removeMessages(HANDLER_HIDE_NAVIGATION);
+        mHandler.sendEmptyMessage(HANDLER_HIDE_NAVIGATION);
     }
 
     /**
@@ -385,6 +400,8 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+        showSystemBar();
     }
 
     /**
@@ -422,6 +439,16 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mEndTime.setText(VideoUtils.generatePlayTime(duration));
         mCurrentTime.setText(VideoUtils.generatePlayTime(position));
         return position;
+    }
+
+    /**
+     * 设置进度
+     */
+    public void setProgress(int position) {
+        if (position < 0) {
+            return;
+        }
+        mPlayer.seekTo(position);
     }
 
     // There are two scenarios that can trigger the seekbar listener to trigger:
@@ -486,6 +513,40 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
             }
         }
     };
+
+
+    private void hideSystemBar() {
+        // Schedule a runnable to remove the status and navigation bar after a delay
+        mHandler.postDelayed(mHideSystemBarRunnable, 300);
+    }
+
+    private final Runnable mHideSystemBarRunnable = new Runnable() {
+        @SuppressLint("InlinedApi")
+        @Override
+        public void run() {
+            // Delayed removal of status and navigation bar
+
+            // Note that some of these constants are new as of API 16 (Jelly Bean)
+            // and API 19 (KitKat). It is safe to use them, as they are inlined
+            // at compile-time and do nothing on earlier devices.
+            setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+        }
+    };
+
+    @SuppressLint("InlinedApi")
+    private void showSystemBar() {
+        // Show the system bar
+        //setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+
+        // Schedule a runnable to display UI elements after a delay
+        mHandler.removeCallbacks(mHideSystemBarRunnable);
+    }
 
 
     public void setCallBack(CallBack callBack) {

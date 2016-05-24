@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:background="?android:selectableItemBackground"
             android:scaleType="center"
-            android:src="@drawable/ic_back" />
+            android:src="@drawable/ic_video_back" />
 
         <TextView
             android:id="@+id/title"
@@ -63,20 +63,23 @@
             android:layout_height="match_parent"
             android:background="?selectableItemBackground"
             android:clickable="true"
-            android:minWidth="@dimen/dp_50"
+            android:minWidth="@dimen/dp_40"
             android:scaleType="center"
             android:src="@drawable/ic_play_play" />
 
-        <ImageView
+        <LinearLayout
             android:id="@+id/play_next"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_40"
             android:layout_height="match_parent"
             android:background="?selectableItemBackground"
-            android:clickable="true"
-            android:minWidth="@dimen/dp_50"
-            android:scaleType="center"
-            android:src="@drawable/ic_play_next"
-            android:visibility="gone" />
+            android:clickable="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:src="@drawable/ic_vidoe_play_next" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/current_time"

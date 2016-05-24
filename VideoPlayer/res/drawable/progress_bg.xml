@@ -32,7 +32,7 @@
             <shape>
                 <corners android:radius="2dip" />
 
-                <solid android:color="#d1d1d1" />
+                <solid android:color="#f8a6a5" />
                 <size android:height="2dp" />
             </shape>
         </clip>
@@ -44,7 +44,7 @@
             <shape>
                 <corners android:radius="2dip" />
 
-                <solid android:color="#0b8cf6" />
+                <solid android:color="#ff4d4b" />
                 <size android:height="2dp" />
             </shape>
         </clip>

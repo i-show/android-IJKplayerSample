@@ -651,7 +651,9 @@ public class VideoView extends FrameLayout implements MediaController.MediaPlaye
                 if (mEffectiveSlidePosition != POSITON_UNEFFECTIVE) {
                     mMediaController.effectiveSlide(computeMoveTime(mMoveX));
                 }
-                mMediaController.hideSlideView();
+                if (mMediaController != null) {
+                    mMediaController.hideSlideView();
+                }
                 mEffectiveSlidePosition = POSITON_UNEFFECTIVE;
                 break;
         }
@@ -710,6 +712,12 @@ public class VideoView extends FrameLayout implements MediaController.MediaPlaye
     }
 
     private void toggleMediaControlsVisiblity() {
+
+        if (mMediaController == null) {
+            Log.i(TAG, "toggleMediaControlsVisiblity: mMediaController is null");
+            return;
+        }
+
         if (mMediaController.isShowing()) {
             mHandler.removeMessages(HANDLER_HIDE_NORMAL_FEATURES);
             mHandler.sendEmptyMessage(HANDLER_HIDE_NORMAL_FEATURES);
