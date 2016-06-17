@@ -55,8 +55,8 @@ public class VideoActivity extends AppCompatActivity {
         mVideoView = (VideoView) findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
         // prefer mVideoPath
-        mVideoView.setVideoPath("http://mss.pinet.co/index.php/api/retrieve/3da4edce-b445-42c8-88a7-3b8a1997d61c/playlist.m3u8");
-        //mVideoView.setVideoPath("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear4/prog_index.m3u8");
+        //mVideoView.setVideoPath("http://wx.pinet.cc:8081/plife2/vieos/加勒比海盗4惊涛怪浪/playlist.m3u8");
+        mVideoView.setVideoPath("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear4/prog_index.m3u8");
 
         mVideoView.start();
         createAd();

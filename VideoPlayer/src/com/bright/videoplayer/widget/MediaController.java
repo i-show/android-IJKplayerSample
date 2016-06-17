@@ -21,8 +21,11 @@ package com.bright.videoplayer.widget;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -118,8 +121,14 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
 
                     break;
                 case HANDLER_SCREEN_SENSOR:
-                    Log.i(TAG, "handleMessage: HANDLER_SCREEN_SENSOR");
-                    ScreenOrientationUtils.setSensor(getContext());
+                    Log.i(TAG, "handleMessage: HANDLER_SCREEN_SENSOR = " + isCanAutoRotation());
+                    if (isCanAutoRotation()) {
+                        ScreenOrientationUtils.setSensor(getContext());
+                    } else if (ScreenOrientationUtils.isLandscape(getContext())) {
+                        ScreenOrientationUtils.setLandscape(getContext(), true);
+                    } else {
+                        ScreenOrientationUtils.setPortrait(getContext(), true);
+                    }
                     break;
                 case HANDLER_HIDE_NAVIGATION:
                     if (ScreenOrientationUtils.isLandscape(getContext())) {
@@ -275,6 +284,7 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         mPortraitVideoRootView = (ViewGroup) mVideoView.getParent();
 
         mHandler.sendEmptyMessage(HANDLER_SCREEN_SENSOR);
+        registerContentObservers();
     }
 
     /**
@@ -560,5 +570,50 @@ public class MediaController extends FrameLayout implements IMediaController, Vi
         void onComplete();
 
         void onPlayNext();
+    }
+
+
+    private void registerContentObservers() {
+        // 通过调用getUriFor
+        Uri airplaneUri = Settings.System.getUriFor(Settings.System.ACCELEROMETER_ROTATION);
+        // 注册内容观察者
+        // 第二个参数false 为精确匹配
+        getContext().getContentResolver().registerContentObserver(airplaneUri, false, mObserver);
+    }
+
+
+    private void unregisterContentObservers() {
+        getContext().getContentResolver().unregisterContentObserver(mObserver);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        Log.i(TAG, "onAttachedToWindow: mVideoView = " + mVideoView);
+        if (mVideoView != null) {
+            registerContentObservers();
+            mHandler.sendEmptyMessage(HANDLER_SCREEN_SENSOR);
+        }
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        Log.i(TAG, "onDetachedFromWindow: ");
+        unregisterContentObservers();
+    }
+
+
+    private ContentObserver mObserver = new ContentObserver(null) {
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            mHandler.sendEmptyMessage(HANDLER_SCREEN_SENSOR);
+        }
+    };
+
+    private boolean isCanAutoRotation() {
+        int acc = Settings.System.getInt(getContext().getContentResolver(), Settings.System.ACCELEROMETER_ROTATION, 0);
+        return acc == 1;
     }
 }

@@ -21,8 +21,8 @@ package com.bright.videoplayer.settings;
 public class Settings {
 
     /**
-     * 是否使用OPEN Sles
+     * 是否使用 opensles
      */
-    public static final boolean USING_OPEN_SLES = true;
+    public static final boolean USING_OPEN_SLES = false;
 
 }
