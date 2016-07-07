@@ -1,6 +1,6 @@
 # IJKplayerSample
 
-本库是基于 Bilibili [ijkplayer](https://github.com/Bilibili/ijkplayer "ijkplayer") 封装而成，本Demo只使用的是最简单的播放功能，更加全面的功能请自行添加
+本库是基于 Bilibili [ijkplayer](https://github.com/Bilibili/ijkplayer "ijkplayer") 封装而成，只使用的是最简单的播放功能，更加全面的功能请自行添加.
 
 
 ###一. 效果演示
@@ -13,16 +13,24 @@
 
 ```
 1. 在setting.gradle 中加入
+...
 include ':VideoPlayer'
+...
 
 2. 主App里面中添加
+...
 // 视频播放库
 compile project(':VideoPlayer')
+...
+
 ```
 方法b: 使用jcenter直接引用
 
 ```
+...
 compile 'com.yuhaiyang:videoplayer:0.0.1'
+...
+
 ```
 #######注：2016年7月7日 上传中审核中
 
@@ -30,6 +38,9 @@ compile 'com.yuhaiyang:videoplayer:0.0.1'
 
 a. xml引用
 ```
+	...
+	...
+
 	<!--  解决竖屏问题-->
     <FrameLayout
         android:layout_width="match_parent"
@@ -42,6 +53,9 @@ a. xml引用
             android:layout_height="match_parent"
             android:layout_gravity="center" />
     </FrameLayout>
+	...
+	...
+
 ```
 
 注意： 外面有包裹一个FrameLayout ,为了防止横竖屏切换VideoView大小的问题
@@ -49,6 +63,8 @@ a. xml引用
 b. java实现
 
 ```
+		...
+		...
         // init UI
         mMediaController = new MediaController(this);
         mMediaController.setCallBack(mCallBack);
@@ -61,9 +77,10 @@ b. java实现
         mVideoView.setVideoPath("播放地址");
 
         mVideoView.start();
-
+		...
+		...
 ```
-
+    
 
 License
 =======
