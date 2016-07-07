@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import com.baidu.mobads.AdSize;
 import com.baidu.mobads.InterstitialAd;
@@ -50,13 +51,14 @@ public class VideoActivity extends AppCompatActivity {
         // init UI
         mMediaController = new MediaController(this);
         mMediaController.setCallBack(mCallBack);
+        mMediaController.setPlayNextVisibility(View.GONE);
         mMediaController.setTitle("变形金刚2");
 
         mVideoView = (VideoView) findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
         // prefer mVideoPath
-        //mVideoView.setVideoPath("http://wx.pinet.cc:8081/plife2/vieos/加勒比海盗4惊涛怪浪/playlist.m3u8");
-        mVideoView.setVideoPath("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear4/prog_index.m3u8");
+        mVideoView.setVideoPath("http://wx.pinet.cc:8081/plife2/vieos/加勒比海盗4惊涛怪浪/playlist.m3u8");
+        //mVideoView.setVideoPath("http://devimages.apple.com.edgekey.net/streaming/examples/bipbop_4x3/gear4/prog_index.m3u8");
 
         mVideoView.start();
         createAd();

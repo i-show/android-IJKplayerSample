@@ -16,5 +16,6 @@
  * @author: y.haiyang@qq.com
  */
 
-include ':VideoPlayer', ':VideoPlayerSample'
+include ':VideoPlayer'
+include ':VideoPlayerSample'
 

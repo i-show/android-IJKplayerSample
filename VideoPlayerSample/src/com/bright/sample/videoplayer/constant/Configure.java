@@ -7,7 +7,7 @@ public class Configure {
     /**
      * 百度广告 是否打开使用
      */
-    public static final boolean SHOW_BAIDU_AD = false;
+    public static final boolean SHOW_BAIDU_AD = true;
     /**
      * 百度Demo中的ID:2058622，个人ID:2431064
      */
