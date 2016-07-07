@@ -24,5 +24,9 @@ public class Settings {
      * 是否使用 opensles
      */
     public static final boolean USING_OPEN_SLES = false;
+    /**
+     * 使用硬解还是软解
+     */
+    public static final int MEDIA_CODE = 0;
 
 }

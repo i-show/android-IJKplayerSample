@@ -824,7 +824,7 @@ public class VideoView extends FrameLayout implements MediaController.MediaPlaye
 
         IjkMediaPlayer ijkMediaPlayer = new IjkMediaPlayer();
         ijkMediaPlayer.native_setLogLevel(IjkMediaPlayer.IJK_LOG_SILENT);
-
+        // 应届还是软解
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "mediacodec", 0);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "opensles", Settings.USING_OPEN_SLES ? 1 : 0);
         ijkMediaPlayer.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "overlay-format", IjkMediaPlayer.SDL_FCC_RV32);

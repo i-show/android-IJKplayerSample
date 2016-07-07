@@ -17,6 +17,8 @@
  */
 
 apply plugin: 'com.android.library'
+// 添加插件
+apply plugin: 'com.novoda.bintray-release'
 
 android {
     compileSdkVersion COMPILE_SDK_VERSION as int
@@ -64,6 +66,10 @@ android {
     }
 }
 
+// 编译的时候使用UTF-8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -78,4 +84,13 @@ dependencies {
     //compile 'tv.danmaku.ijk.media:ijkplayer-armv5:0.4.5.1'
     //compile 'tv.danmaku.ijk.media:ijkplayer-arm64:0.4.5.1'
     //compile 'tv.danmaku.ijk.media:ijkplayer-x86:0.4.5.1'
+}
+
+publish {
+    userOrg = 'brightyu'//bintray.com用户名
+    groupId = 'com.yuhaiyang'//jcenter上的路径
+    artifactId = 'videoplayer'//项目名称
+    publishVersion = '0.0.1'//版本号
+    desc = 'Common For My Android Dev'
+    website = 'https://github.com/BrightYu/IJKplayerSample'
 }
