@@ -73,6 +73,8 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.yuhaiyang:common:0.0.2'
+
     compile "com.android.support:appcompat-v7:${SUPPORT_V7_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_V7_VERSION}"
 
@@ -90,7 +92,7 @@ publish {
     userOrg = 'brightyu'//bintray.com用户名
     groupId = 'com.yuhaiyang'//jcenter上的路径
     artifactId = 'videoplayer'//项目名称
-    publishVersion = '0.0.1'//版本号
-    desc = 'Common For My Android Dev'
+    publishVersion = JCENTER_VERSION//版本号
+    desc = 'a video play lib'
     website = 'https://github.com/BrightYu/IJKplayerSample'
 }

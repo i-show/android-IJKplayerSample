@@ -52,7 +52,7 @@ public class VideoActivity extends AppCompatActivity {
         mMediaController = new MediaController(this);
         mMediaController.setCallBack(mCallBack);
         mMediaController.setPlayNextVisibility(View.GONE);
-        mMediaController.setTitle("变形金刚2");
+        mMediaController.setTitle("加勒比海盗4");
 
         mVideoView = (VideoView) findViewById(R.id.video_view);
         mVideoView.setMediaController(mMediaController);
