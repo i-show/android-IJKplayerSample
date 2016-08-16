@@ -73,7 +73,6 @@ tasks.withType(JavaCompile) {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.yuhaiyang:common:0.0.2'
 
     compile "com.android.support:appcompat-v7:${SUPPORT_V7_VERSION}"
     compile "com.android.support:support-annotations:${SUPPORT_V7_VERSION}"
